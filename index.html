@@ -18,13 +18,14 @@
       font-family: 'Sarabun', sans-serif;
       background: linear-gradient(135deg, #f0f7ff 0%, #e0f2fe 50%, #f8fafc 100%);
       min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
     }
     h1, h2, h3, h4, h5, .font-heading {
       font-family: 'Kanit', sans-serif;
     }
     .custom-scroll::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
+      width: 5px;
+      height: 5px;
     }
     .custom-scroll::-webkit-scrollbar-thumb {
       background-color: #bae6fd;
@@ -35,10 +36,16 @@
     }
     @keyframes bobbing {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-7px) rotate(1.5deg); }
+      50% { transform: translateY(-6px) rotate(1.5deg); }
     }
     .animate-mascot {
       animation: bobbing 3.5s ease-in-out infinite;
+    }
+    /* Responsive Touch and Layout Fixes */
+    @media (max-width: 640px) {
+      .touch-target {
+        min-height: 44px;
+      }
     }
     @media print {
       body * {
@@ -63,93 +70,93 @@
 </head>
 <body class="text-slate-700 antialiased selection:bg-sky-500 selection:text-white">
 
-  <!-- Main Container -->
-  <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-6 py-4 space-y-5">
+  <!-- Main Container: Fluid & Adaptive for Mobile, Tablet, Desktop -->
+  <div class="w-full max-w-7xl mx-auto px-2 sm:px-4 lg:px-6 py-3 sm:py-5 space-y-3 sm:space-y-5">
 
     <!-- Top Header & School Brand Identity -->
-    <header class="bg-white/95 backdrop-blur-md rounded-3xl p-4 sm:p-5 shadow-sm border border-sky-100 flex flex-col md:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-4 text-center md:text-left">
+    <header class="bg-white/95 backdrop-blur-md rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-xs border border-sky-100 flex flex-col md:flex-row items-center justify-between gap-3 sm:gap-4">
+      <div class="flex items-center gap-3 sm:gap-4 text-center md:text-left w-full md:w-auto justify-center md:justify-start">
         <!-- School Logo (HoiTech.jpeg) -->
-        <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white p-1 flex-shrink-0 shadow-md border-2 border-amber-300 flex items-center justify-center overflow-hidden hover:scale-105 transition-transform">
+        <div class="relative w-14 h-14 sm:w-20 sm:h-20 rounded-2xl bg-white p-1 flex-shrink-0 shadow-md border-2 border-amber-300 flex items-center justify-center overflow-hidden hover:scale-105 transition-transform">
           <img src="HoiTech.jpeg" alt="โลโก้โรงเรียนบ้านหนองหอย" class="w-full h-full object-contain drop-shadow" onerror="this.onerror=null; this.src='https://placehold.co/150x150/0284c7/ffffff?text=น.ห.';">
         </div>
-        <div>
-          <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-1">
-            <span class="text-xs bg-sky-100 text-sky-800 font-bold px-3 py-0.5 rounded-full border border-sky-200">
+        <div class="text-left">
+          <div class="flex flex-wrap items-center gap-1.5 sm:gap-2 mb-0.5 sm:mb-1">
+            <span class="text-[10px] sm:text-xs bg-sky-100 text-sky-800 font-bold px-2.5 py-0.5 rounded-full border border-sky-200">
               สพป.ขอนแก่น เขต 5
             </span>
-            <span class="text-xs text-slate-500">ต.นาคำ อ.หนองนาคำ จ.ขอนแก่น</span>
+            <span class="text-[10px] sm:text-xs text-slate-500 hidden xs:inline">ต.นาคำ อ.หนองนาคำ จ.ขอนแก่น</span>
           </div>
-          <h1 class="text-xl sm:text-2xl font-extrabold text-slate-800 tracking-tight">
-            ระบบลงเวลาปฏิบัติราชการ <span class="text-sky-600">โรงเรียนบ้านหนองหอย</span>
+          <h1 class="text-base sm:text-xl lg:text-2xl font-extrabold text-slate-800 tracking-tight leading-tight">
+            ระบบลงเวลาปฏิบัติราชการ <span class="text-sky-600 block sm:inline">โรงเรียนบ้านหนองหอย</span>
           </h1>
-          <p class="text-xs sm:text-sm text-slate-500 font-medium">คำขวัญ: <span class="text-sky-700 font-semibold italic">“ความรู้ คู่คุณธรรม”</span> (โรงเรียนขนาดเล็ก นักเรียนประมาณ 54 คน)</p>
+          <p class="text-[11px] sm:text-xs text-slate-500 font-medium hidden sm:block">คำขวัญ: <span class="text-sky-700 font-semibold italic">“ความรู้ คู่คุณธรรม”</span> (โรงเรียนขนาดเล็ก 54 คน)</p>
         </div>
       </div>
 
       <!-- Google Sheets Status & Quick Settings -->
-      <div class="flex flex-wrap items-center gap-2">
-        <div id="sheetsStatusBadge" class="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-xs">
+      <div class="flex items-center justify-between w-full md:w-auto gap-2 pt-2 md:pt-0 border-t md:border-t-0 border-slate-100">
+        <div id="sheetsStatusBadge" class="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          <span>Google Sheets: เชื่อมต่อแล้ว</span>
+          <span class="truncate max-w-[150px] sm:max-w-none">Google Sheets: เชื่อมต่อแล้ว</span>
         </div>
-        <button onclick="openConfigModal()" class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-medium text-slate-600 hover:text-sky-700 hover:bg-sky-50 border border-slate-200 transition">
+        <button onclick="openConfigModal()" class="flex items-center gap-1 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-xl text-xs font-medium text-slate-600 hover:text-sky-700 hover:bg-sky-50 border border-slate-200 transition">
           <i data-lucide="settings" class="w-3.5 h-3.5"></i>
           <span>ตั้งค่าชีต</span>
         </button>
       </div>
     </header>
 
-    <!-- Navigation Tabs -->
-    <div class="bg-white/80 backdrop-blur-sm p-1.5 rounded-2xl shadow-sm border border-sky-100 flex flex-wrap gap-1">
-      <button onclick="switchTab('tab-clockin')" id="btn-tab-clockin" class="flex-1 min-w-[130px] flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition bg-sky-600 text-white shadow-md">
+    <!-- Navigation Tabs: Horizontal Scroll on Mobile & iPad -->
+    <div class="bg-white/90 backdrop-blur-sm p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-xs border border-sky-100 overflow-x-auto flex gap-1 custom-scroll">
+      <button onclick="switchTab('tab-clockin')" id="btn-tab-clockin" class="flex-shrink-0 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm transition bg-sky-600 text-white shadow-xs">
         <i data-lucide="clock" class="w-4 h-4"></i>
-        <span>บันทึกเวลาปฏิบัติงาน</span>
+        <span>ลงเวลา</span>
       </button>
-      <button onclick="switchTab('tab-directory')" id="btn-tab-directory" class="flex-1 min-w-[130px] flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition text-slate-600 hover:bg-slate-100">
+      <button onclick="switchTab('tab-directory')" id="btn-tab-directory" class="flex-shrink-0 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm transition text-slate-600 hover:bg-slate-100">
         <i data-lucide="users" class="w-4 h-4"></i>
-        <span>ทำเนียบบุคลากรและครู</span>
+        <span>ทำเนียบคณะครู</span>
       </button>
-      <button onclick="switchTab('tab-history')" id="btn-tab-history" class="flex-1 min-w-[130px] flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition text-slate-600 hover:bg-slate-100">
+      <button onclick="switchTab('tab-history')" id="btn-tab-history" class="flex-shrink-0 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm transition text-slate-600 hover:bg-slate-100">
         <i data-lucide="clipboard-list" class="w-4 h-4"></i>
         <span>ประวัติการลงเวลา</span>
       </button>
-      <button onclick="switchTab('tab-reports')" id="btn-tab-reports" class="flex-1 min-w-[130px] flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl font-bold text-xs sm:text-sm transition text-slate-600 hover:bg-slate-100">
+      <button onclick="switchTab('tab-reports')" id="btn-tab-reports" class="flex-shrink-0 flex items-center justify-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl font-bold text-xs sm:text-sm transition text-slate-600 hover:bg-slate-100">
         <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
         <span>รายงานสรุปสถิติ</span>
       </button>
     </div>
 
     <!-- TAB 1: บันทึกเวลาปฏิบัติงาน (Clock-in / Clock-out) -->
-    <div id="tab-clockin" class="space-y-5">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+    <div id="tab-clockin" class="space-y-4 sm:space-y-5">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5">
         
-        <!-- Left: Digital Clock & Check-in Form (7 Cols) -->
-        <div class="lg:col-span-7 space-y-5">
+        <!-- Left: Digital Clock & Check-in Form (7 Cols on Desktop) -->
+        <div class="lg:col-span-7 space-y-4">
           <!-- Live Real-time Clock Card -->
-          <div class="bg-gradient-to-br from-sky-600 via-sky-700 to-blue-800 text-white rounded-3xl p-6 shadow-xl shadow-sky-900/10 relative overflow-hidden">
-            <div class="absolute -right-10 -bottom-10 w-44 h-44 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div class="bg-gradient-to-br from-sky-600 via-sky-700 to-blue-800 text-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg shadow-sky-900/10 relative overflow-hidden">
+            <div class="absolute -right-8 -bottom-8 w-36 h-36 bg-white/10 rounded-full blur-xl pointer-events-none"></div>
             
-            <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="relative z-10 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
               <div>
-                <span class="text-xs font-semibold uppercase tracking-wider text-sky-200 bg-sky-900/40 px-3 py-1 rounded-full border border-sky-400/30">
+                <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-sky-200 bg-sky-900/40 px-2.5 py-0.5 rounded-full border border-sky-400/30">
                   เวลามาตรฐานประเทศไทย (ICT)
                 </span>
-                <div id="digitalClock" class="font-heading text-4xl sm:text-5xl font-black tracking-tight mt-2 text-white drop-shadow">
+                <div id="digitalClock" class="font-heading text-3xl sm:text-5xl font-black tracking-tight mt-1 sm:mt-2 text-white drop-shadow">
                   00:00:00 น.
                 </div>
-                <div id="currentThaiDate" class="text-sm sm:text-base font-medium text-sky-100 mt-1">
+                <div id="currentThaiDate" class="text-xs sm:text-base font-medium text-sky-100 mt-0.5">
                   กำลังโหลดวันที่...
                 </div>
               </div>
 
               <!-- In/Out Type Switcher Buttons -->
-              <div class="flex bg-sky-900/60 p-1 rounded-2xl border border-sky-400/40 backdrop-blur-sm self-start sm:self-auto">
-                <button type="button" onclick="setLogType('IN')" id="btnTypeIn" class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition bg-sky-500 text-white shadow">
+              <div class="flex bg-sky-900/60 p-1 rounded-xl sm:rounded-2xl border border-sky-400/40 backdrop-blur-sm self-stretch sm:self-auto justify-center">
+                <button type="button" onclick="setLogType('IN')" id="btnTypeIn" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold transition bg-sky-500 text-white shadow">
                   <i data-lucide="log-in" class="w-4 h-4"></i>
                   <span>เข้างาน</span>
                 </button>
-                <button type="button" onclick="setLogType('OUT')" id="btnTypeOut" class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition bg-transparent text-sky-100 hover:text-white">
+                <button type="button" onclick="setLogType('OUT')" id="btnTypeOut" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-4 py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-bold transition bg-transparent text-sky-100 hover:text-white">
                   <i data-lucide="log-out" class="w-4 h-4"></i>
                   <span>ออกงาน</span>
                 </button>
@@ -158,13 +165,13 @@
           </div>
 
           <!-- Attendance Submission Form -->
-          <form onsubmit="handleRecordSubmit(event)" class="bg-white rounded-3xl p-5 sm:p-6 shadow-sm border border-sky-100 space-y-4">
-            <div class="border-b border-slate-100 pb-3 flex items-center justify-between">
-              <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
-                <i data-lucide="check-circle" class="w-5 h-5 text-sky-600"></i>
+          <form onsubmit="handleRecordSubmit(event)" class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xs border border-sky-100 space-y-3 sm:space-y-4">
+            <div class="border-b border-slate-100 pb-2.5 flex items-center justify-between">
+              <h2 class="text-sm sm:text-base font-bold text-slate-800 flex items-center gap-2">
+                <i data-lucide="check-circle" class="w-4 h-4 sm:w-5 sm:h-5 text-sky-600"></i>
                 บันทึกการลงเวลาปฏิบัติราชการ
               </h2>
-              <span id="badgeCurrentType" class="text-xs px-2.5 py-1 rounded-full font-bold bg-sky-100 text-sky-800 border border-sky-200">
+              <span id="badgeCurrentType" class="text-[11px] sm:text-xs px-2.5 py-0.5 rounded-full font-bold bg-sky-100 text-sky-800 border border-sky-200">
                 เข้าปฏิบัติราชการ
               </span>
             </div>
@@ -172,15 +179,18 @@
             <div class="space-y-3">
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">เลือกบุคลากรหรือครูผู้ลงเวลา *</label>
-                <select id="personnelSelect" required class="w-full px-3.5 py-2.5 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none bg-slate-50">
+                <select id="personnelSelect" required class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none bg-slate-50">
                   <option value="">-- กรุณาเลือกรายชื่อ --</option>
                 </select>
               </div>
 
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1">สถานะการมาปฏิบัติงาน</label>
-                  <select id="statusSelect" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none bg-slate-50">
+                  <div class="flex items-center justify-between mb-1">
+                    <label class="text-xs font-bold text-slate-700">สถานะการมาปฏิบัติงาน</label>
+                    <span id="autoLateNotice" class="text-[10px] text-amber-600 font-semibold hidden">⏰ ระบบตั้งสายอัตโนมัติ (>08:15)</span>
+                  </div>
+                  <select id="statusSelect" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none bg-slate-50 transition">
                     <option value="ปกติ">ปกติ (ทันเวลา)</option>
                     <option value="สาย">มาสาย</option>
                     <option value="ปฏิบัติหน้าที่เวรยาม">ปฏิบัติหน้าที่เวรยาม</option>
@@ -192,8 +202,8 @@
                 <div>
                   <label class="block text-xs font-bold text-slate-700 mb-1">พิกัด GPS โรงเรียน</label>
                   <div class="flex items-center justify-between px-3 py-2.5 rounded-xl border border-slate-200 bg-slate-50 text-xs">
-                    <span id="gpsDisplay" class="text-slate-600 font-mono">16.8291° N, 102.3482° E</span>
-                    <span class="text-emerald-600 font-bold text-[11px] flex items-center gap-1">
+                    <span id="gpsDisplay" class="text-slate-600 font-mono text-[11px] truncate">16.8291° N, 102.3482° E</span>
+                    <span class="text-emerald-600 font-bold text-[11px] flex items-center gap-1 flex-shrink-0">
                       <i data-lucide="map-pin" class="w-3.5 h-3.5"></i> ใน รร.
                     </span>
                   </div>
@@ -202,42 +212,42 @@
 
               <div>
                 <label class="block text-xs font-bold text-slate-700 mb-1">หมายเหตุ / ภารกิจเพิ่มเติม (ถ้ามี)</label>
-                <input type="text" id="notesInput" placeholder="เช่น เวรหน้าประตูโรงเรียน, สอนชดเชย, นำนักเรียนเข้าแข่งขัน" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
+                <input type="text" id="notesInput" placeholder="เช่น เวรหน้าประตูโรงเรียน, สอนชดเชย, อบรมออนไลน์" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm focus:ring-2 focus:ring-sky-500 focus:outline-none">
               </div>
             </div>
 
-            <button type="submit" id="submitAttendanceBtn" class="w-full mt-2 py-3 px-4 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 shadow-md transition flex items-center justify-center gap-2">
+            <button type="submit" id="submitAttendanceBtn" class="w-full py-2.5 sm:py-3 px-4 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-sky-600 to-blue-600 hover:from-sky-700 hover:to-blue-700 shadow-md transition flex items-center justify-center gap-2">
               <i data-lucide="save" class="w-4 h-4"></i>
               <span id="submitBtnText">ยืนยันลงเวลาเข้าปฏิบัติราชการ</span>
             </button>
           </form>
         </div>
 
-        <!-- Right: Director Card & Mascot "HoiTech" (5 Cols) -->
-        <div class="lg:col-span-5 space-y-4">
+        <!-- Right: Director Card & Mascot "HoiTech" (5 Cols on Desktop) -->
+        <div class="lg:col-span-5 space-y-3 sm:space-y-4">
           <!-- Director Card (kitchawat.jpg) -->
-          <div class="bg-gradient-to-br from-white via-sky-50/50 to-blue-50/40 rounded-3xl p-5 border-2 border-sky-200 shadow-sm flex items-center gap-4 hover:shadow-md transition">
-            <div class="relative w-20 h-20 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-md flex-shrink-0 bg-sky-100">
+          <div class="bg-gradient-to-br from-white via-sky-50/50 to-blue-50/40 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 border-2 border-sky-200 shadow-xs flex items-center gap-3 sm:gap-4 hover:shadow-md transition">
+            <div class="relative w-16 h-16 sm:w-20 sm:h-20 rounded-2xl overflow-hidden border-2 border-amber-400 shadow-md flex-shrink-0 bg-sky-100">
               <img src="kitchawat.jpg" alt="นายกิจวัฒน์ แสนศรีระ" class="w-full h-full object-cover object-top hover:scale-105 transition duration-300" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\'w-full h-full bg-sky-700 text-white flex items-center justify-center font-bold text-lg\'>ก.ศ.</div>';">
-              <span class="absolute bottom-0 inset-x-0 bg-sky-900/80 text-[9px] text-amber-200 text-center font-bold py-0.5">ผอ.รร.</span>
+              <span class="absolute bottom-0 inset-x-0 bg-sky-900/80 text-[8px] sm:text-[9px] text-amber-200 text-center font-bold py-0.5">ผอ.รร.</span>
             </div>
-            <div class="flex-1">
-              <span class="text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded-full inline-flex items-center gap-1 mb-1 border border-sky-200">
+            <div class="flex-1 min-w-0">
+              <span class="text-[9px] sm:text-[10px] font-bold text-sky-800 bg-sky-100 px-2 py-0.5 rounded-full inline-flex items-center gap-1 mb-0.5 border border-sky-200">
                 <i data-lucide="award" class="w-3 h-3 text-amber-600"></i> ผู้อำนวยการโรงเรียน
               </span>
-              <h3 class="font-extrabold text-slate-800 text-base">นายกิจวัฒน์ แสนศรีระ</h3>
-              <p class="text-xs text-slate-500">โรงเรียนบ้านหนองหอย สพป.ขอนแก่น เขต 5</p>
-              <button onclick="pickStaffAndClockIn(1)" class="mt-2 text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 px-3 py-1.5 rounded-xl shadow-xs transition flex items-center gap-1.5">
-                <i data-lucide="check" class="w-3.5 h-3.5"></i> เลือกลงเวลาท่าน ผอ.
+              <h3 class="font-extrabold text-slate-800 text-sm sm:text-base truncate">นายกิจวัฒน์ แสนศรีระ</h3>
+              <p class="text-[11px] text-slate-500 truncate">โรงเรียนบ้านหนองหอย สพป.ขอนแก่น เขต 5</p>
+              <button onclick="pickStaffAndClockIn(1)" class="mt-1.5 text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 px-3 py-1 rounded-lg sm:rounded-xl shadow-xs transition inline-flex items-center gap-1">
+                <i data-lucide="check" class="w-3 h-3"></i> เลือกลงเวลาท่าน ผอ.
               </button>
             </div>
           </div>
 
           <!-- Mascot Card "HoiTech" (หอยเทค) -->
-          <div class="bg-white rounded-3xl p-5 border border-sky-100 shadow-sm relative overflow-hidden">
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border border-sky-100 shadow-xs relative overflow-hidden">
             <div class="flex items-center gap-3 mb-2">
               <!-- HoiTech SVG Mascot Avatar -->
-              <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-sky-400 to-blue-600 p-1 flex-shrink-0 shadow-md flex items-center justify-center animate-mascot cursor-pointer" onclick="getRandomMascotQuote()" title="คลิกคุยกับน้องหอยเทค">
+              <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-tr from-sky-400 to-blue-600 p-1 flex-shrink-0 shadow-md flex items-center justify-center animate-mascot cursor-pointer" onclick="getRandomMascotQuote()" title="คลิกคุยกับน้องหอยเทค">
                 <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow">
                   <!-- Shell with spiral -->
                   <circle cx="45" cy="45" r="28" fill="#38bdf8" stroke="#0369a1" stroke-width="3"/>
@@ -260,16 +270,16 @@
               </div>
               <div>
                 <div class="flex items-center gap-1.5">
-                  <h4 class="font-extrabold text-slate-800 text-sm">น้องหอยเทค (HoiTech)</h4>
-                  <span class="text-[10px] bg-amber-100 text-amber-800 font-bold px-2 py-0.2 rounded-full">มาสคอตประจำระบบ</span>
+                  <h4 class="font-extrabold text-slate-800 text-xs sm:text-sm">น้องหอยเทค (HoiTech)</h4>
+                  <span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded-full">มาสคอตประจำระบบ</span>
                 </div>
-                <p class="text-[11px] text-slate-400">ผู้ช่วยอัจฉริยะบันทึกเวลาปฏิบัติงาน</p>
+                <p class="text-[10px] text-slate-400">ผู้ช่วยอัจฉริยะบันทึกเวลาปฏิบัติงาน</p>
               </div>
             </div>
 
             <!-- Speech Bubble -->
-            <div class="relative bg-sky-50 border border-sky-200 rounded-2xl p-3 text-xs text-sky-900 font-medium">
-              <span id="mascotQuote">“สวัสดีครับคุณครู! ยินดีต้อนรับสู่โรงเรียนบ้านหนองหอย วันนี้พร้อมสร้างสรรค์การเรียนรู้ให้เด็กๆ แล้วหรือยังครับ?”</span>
+            <div class="relative bg-sky-50 border border-sky-200 rounded-xl p-2.5 text-xs text-sky-900 font-medium">
+              <span id="mascotQuote">“สวัสดีครับคุณครู! ยินดีต้อนรับสู่โรงเรียนบ้านหนองหอย หากลงเวลาหลัง 08:15 น. ระบบจะช่วยตั้งสถานะสายให้อัตโนมัติครับ”</span>
               <button type="button" onclick="getRandomMascotQuote()" class="block text-[10px] text-sky-600 hover:underline mt-1 font-bold">
                 ↻ คุยกับน้องหอยเทค
               </button>
@@ -277,95 +287,142 @@
           </div>
 
           <!-- Quick Tap Select Staff List -->
-          <div class="bg-white rounded-3xl p-4 border border-sky-100 shadow-sm space-y-2">
+          <div class="bg-white rounded-2xl sm:rounded-3xl p-3.5 sm:p-4 border border-sky-100 shadow-xs space-y-2">
             <h4 class="text-xs font-bold text-slate-700 flex items-center justify-between">
               <span>เลือกด่วนรายบุคคล</span>
-              <span class="text-[10px] text-sky-600">คลิกชื่อเพื่อเลือกลงเวลา</span>
+              <span class="text-[10px] text-sky-600">แตะเพื่อเลือกลงเวลา</span>
             </h4>
-            <div id="quickSelectContainer" class="space-y-1.5 max-h-48 overflow-y-auto custom-scroll pr-1">
+            <div id="quickSelectContainer" class="space-y-1 max-h-40 sm:max-h-44 overflow-y-auto custom-scroll pr-1">
               <!-- Rendered via JavaScript -->
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Daily Summary Stat Cards -->
-      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-        <div class="bg-white rounded-2xl p-4 border border-sky-100 shadow-xs">
-          <p class="text-xs text-slate-500 font-medium">บุคลากรทั้งหมด</p>
-          <p id="statCardTotal" class="text-xl font-heading font-bold text-slate-800 mt-1">5 ท่าน</p>
+      <!-- Daily Summary Stat Cards: Grid 2 cols on mobile, 4 on desktop -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3">
+        <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-sky-100 shadow-xs">
+          <p class="text-[11px] sm:text-xs text-slate-500 font-medium">บุคลากรทั้งหมด</p>
+          <p id="statCardTotal" class="text-lg sm:text-xl font-heading font-bold text-slate-800 mt-0.5">5 ท่าน</p>
         </div>
-        <div class="bg-white rounded-2xl p-4 border border-sky-100 shadow-xs">
-          <p class="text-xs text-emerald-600 font-medium">ลงเวลาเข้าแล้ววันนี้</p>
-          <p id="statCardPresent" class="text-xl font-heading font-bold text-emerald-600 mt-1">0 รายการ</p>
+        <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-sky-100 shadow-xs">
+          <p class="text-[11px] sm:text-xs text-emerald-600 font-medium">ลงเวลาเข้าแล้ว</p>
+          <p id="statCardPresent" class="text-lg sm:text-xl font-heading font-bold text-emerald-600 mt-0.5">0 รายการ</p>
         </div>
-        <div class="bg-white rounded-2xl p-4 border border-sky-100 shadow-xs">
-          <p class="text-xs text-sky-600 font-medium">ปฏิบัติราชการ/เวร</p>
-          <p id="statCardDuty" class="text-xl font-heading font-bold text-sky-700 mt-1">0 ท่าน</p>
+        <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-sky-100 shadow-xs">
+          <p class="text-[11px] sm:text-xs text-sky-600 font-medium">ปฏิบัติราชการ/เวร</p>
+          <p id="statCardDuty" class="text-lg sm:text-xl font-heading font-bold text-sky-700 mt-0.5">0 ท่าน</p>
         </div>
-        <div class="bg-white rounded-2xl p-4 border border-sky-100 shadow-xs">
-          <p class="text-xs text-amber-600 font-medium">ลา/ไปราชการ</p>
-          <p id="statCardLeave" class="text-xl font-heading font-bold text-amber-600 mt-1">0 ท่าน</p>
+        <div class="bg-white rounded-xl sm:rounded-2xl p-3 sm:p-4 border border-sky-100 shadow-xs">
+          <p class="text-[11px] sm:text-xs text-amber-600 font-medium">ลา/ไปราชการ/สาย</p>
+          <p id="statCardLeave" class="text-lg sm:text-xl font-heading font-bold text-amber-600 mt-0.5">0 ท่าน</p>
         </div>
       </div>
     </div>
 
     <!-- TAB 2: ทำเนียบบุคลากรและครู (Staff Directory) -->
     <div id="tab-directory" class="hidden space-y-4">
-      <div class="bg-white rounded-3xl p-5 shadow-sm border border-sky-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-xs border border-sky-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
             <i data-lucide="users" class="w-5 h-5 text-sky-600"></i>
             ทำเนียบผู้บริหาร คณะครู และบุคลากร
           </h2>
           <p class="text-xs text-slate-500">โรงเรียนบ้านหนองหอย สพป.ขอนแก่น เขต 5</p>
         </div>
-        <button onclick="openAddStaffModal()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 shadow-sm transition">
+        <button onclick="openAddStaffModal()" class="flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 shadow-xs transition">
           <i data-lucide="user-plus" class="w-4 h-4"></i>
           <span>เพิ่มรายชื่อบุคลากร</span>
         </button>
       </div>
 
       <!-- Directory Cards Grid -->
-      <div id="staffDirectoryCards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div id="staffDirectoryCards" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
         <!-- Rendered via JavaScript -->
       </div>
     </div>
 
-    <!-- TAB 3: ประวัติการลงเวลา (Attendance History) -->
-    <div id="tab-history" class="hidden space-y-4">
-      <div class="bg-white rounded-3xl p-5 shadow-sm border border-sky-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <!-- TAB 3: ประวัติการลงเวลา (Attendance History) with Item 4: Advanced Filter & Search -->
+    <div id="tab-history" class="hidden space-y-3 sm:space-y-4">
+      <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-xs border border-sky-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
             <i data-lucide="clipboard-list" class="w-5 h-5 text-sky-600"></i>
             ประวัติการลงเวลาปฏิบัติราชการ
           </h2>
-          <p class="text-xs text-slate-500">บันทึกข้อมูลย้อนหลัง และสถานะการบันทึกเข้า Google Sheets</p>
+          <p class="text-xs text-slate-500">ค้นหา คัดกรองรายชื่อ และสถานะการบันทึกเข้า Google Sheets</p>
         </div>
-        <div class="flex items-center gap-2">
-          <button onclick="syncAllToSheets()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition">
+        <div class="flex items-center gap-2 flex-wrap">
+          <button onclick="syncAllToSheets()" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition">
             <i data-lucide="cloud-upload" class="w-4 h-4"></i>
-            <span>ซิงก์ข้อมูลขึ้น Sheets</span>
+            <span>ซิงก์ขึ้น Sheets</span>
           </button>
-          <button onclick="exportToCSV()" class="flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition">
+          <button onclick="exportToCSV()" class="flex-1 sm:flex-none flex items-center justify-center gap-1.5 px-3 py-2 rounded-xl text-xs font-bold text-sky-700 bg-sky-50 hover:bg-sky-100 border border-sky-200 transition">
             <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
-            <span>ส่งออก Excel/CSV</span>
+            <span>ส่งออก Excel</span>
           </button>
         </div>
       </div>
 
+      <!-- Item 4: Advanced Filter & Search Bar -->
+      <div class="bg-white rounded-2xl p-3 sm:p-4 border border-sky-100 shadow-xs space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
+            <i data-lucide="filter" class="w-3.5 h-3.5 text-sky-600"></i> ตัวกรองและค้นหาข้อมูลขั้นสูง
+          </span>
+          <span id="filterCountBadge" class="text-[11px] text-sky-700 font-semibold bg-sky-50 px-2 py-0.5 rounded-full border border-sky-200">
+            แสดง 0 รายการ
+          </span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+          <!-- Keyword / Name Search -->
+          <div class="relative">
+            <i data-lucide="search" class="w-3.5 h-3.5 absolute left-3 top-3 text-slate-400"></i>
+            <input type="text" id="filterKeyword" oninput="renderAttendanceTable()" placeholder="ค้นหาชื่อ หรือ หมายเหตุ..." class="w-full pl-8 pr-3 py-2 border rounded-xl text-xs font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none bg-slate-50">
+          </div>
+          <!-- Person Selector -->
+          <div>
+            <select id="filterPerson" onchange="renderAttendanceTable()" class="w-full px-3 py-2 border rounded-xl text-xs font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none bg-slate-50">
+              <option value="">-- บุคลากรทุกคน --</option>
+            </select>
+          </div>
+          <!-- Type Filter -->
+          <div>
+            <select id="filterType" onchange="renderAttendanceTable()" class="w-full px-3 py-2 border rounded-xl text-xs font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none bg-slate-50">
+              <option value="">-- รายการทั้งหมด (เข้า/ออก) --</option>
+              <option value="IN">เฉพาะเข้าปฏิบัติราชการ</option>
+              <option value="OUT">เฉพาะออกปฏิบัติราชการ</option>
+            </select>
+          </div>
+          <!-- Status Filter -->
+          <div class="flex gap-1.5">
+            <select id="filterStatus" onchange="renderAttendanceTable()" class="w-full px-3 py-2 border rounded-xl text-xs font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none bg-slate-50">
+              <option value="">-- สถานะทั้งหมด --</option>
+              <option value="ปกติ">ปกติ</option>
+              <option value="สาย">มาสาย</option>
+              <option value="เวร">ปฏิบัติหน้าที่เวรยาม</option>
+              <option value="ราชการ">ไปราชการ / อบรม</option>
+              <option value="ลา">ลากิจ / ลาป่วย</option>
+            </select>
+            <button onclick="resetFilters()" title="ล้างตัวกรอง" class="px-2.5 py-2 bg-slate-100 hover:bg-slate-200 rounded-xl text-slate-600 transition flex items-center justify-center">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- History Table -->
-      <div class="bg-white rounded-3xl shadow-sm border border-sky-100 overflow-hidden">
-        <div class="overflow-x-auto">
-          <table class="w-full text-left border-collapse">
+      <div class="bg-white rounded-2xl sm:rounded-3xl shadow-xs border border-sky-100 overflow-hidden">
+        <div class="overflow-x-auto custom-scroll">
+          <table class="w-full text-left border-collapse min-w-[640px]">
             <thead>
               <tr class="bg-slate-50 text-[11px] font-bold text-slate-500 uppercase border-b border-slate-100">
-                <th class="py-3 px-4">#</th>
-                <th class="py-3 px-4">ชื่อ - นามสกุล / ตำแหน่ง</th>
-                <th class="py-3 px-4">วันที่</th>
-                <th class="py-3 px-4">เวลา</th>
-                <th class="py-3 px-4">รายการ</th>
-                <th class="py-3 px-4">สถานะ / หมายเหตุ</th>
+                <th class="py-3 px-3 sm:px-4 w-12 text-center">#</th>
+                <th class="py-3 px-3 sm:px-4">ชื่อ - นามสกุล / ตำแหน่ง</th>
+                <th class="py-3 px-3 sm:px-4">วันที่</th>
+                <th class="py-3 px-3 sm:px-4">เวลา</th>
+                <th class="py-3 px-3 sm:px-4">รายการ</th>
+                <th class="py-3 px-3 sm:px-4">สถานะ / หมายเหตุ</th>
               </tr>
             </thead>
             <tbody id="attendanceTableBody" class="divide-y divide-slate-100 text-xs">
@@ -377,23 +434,23 @@
     </div>
 
     <!-- TAB 4: รายงานสรุปสถิติ (Reports: Daily, Weekly, Monthly, Semester) -->
-    <div id="tab-reports" class="hidden space-y-5">
-      <div class="bg-white rounded-3xl p-5 shadow-sm border border-sky-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+    <div id="tab-reports" class="hidden space-y-4">
+      <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 shadow-xs border border-sky-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h2 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+          <h2 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
             <i data-lucide="bar-chart-3" class="w-5 h-5 text-sky-600"></i>
             รายงานสรุปการปฏิบัติงาน 4 มิติ
           </h2>
           <p class="text-xs text-slate-500">รายงานสรุปประจำวัน สัปดาห์ เดือน และภาคเรียน สำหรับงานธุรการและบุคลากร</p>
         </div>
-        <button onclick="window.print()" class="flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-slate-800 hover:bg-slate-900 shadow-sm transition">
+        <button onclick="window.print()" class="flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold text-white bg-slate-800 hover:bg-slate-900 shadow-xs transition">
           <i data-lucide="printer" class="w-4 h-4"></i>
           <span>พิมพ์รายงาน</span>
         </button>
       </div>
 
       <!-- Printable Area -->
-      <div id="printArea" class="space-y-6">
+      <div id="printArea" class="space-y-4 sm:space-y-6">
         <!-- School Letterhead for Print -->
         <div class="text-center pb-3 border-b border-slate-200">
           <h3 class="text-base sm:text-lg font-bold text-slate-900">แบบรายงานการลงเวลาปฏิบัติราชการข้าราชการครูและบุคลากรทางการศึกษา</h3>
@@ -401,8 +458,8 @@
           <p class="text-xs text-slate-500">สำนักงานเขตพื้นที่การศึกษาประถมศึกษาขอนแก่น เขต 5</p>
         </div>
 
-        <!-- 4 Reports Grids -->
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <!-- 4 Reports Grids: Responsive 1 col on mobile, 2 cols on tablet/desktop -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           <!-- 1. Daily Report -->
           <div class="bg-white rounded-2xl p-4 border border-sky-100 shadow-xs space-y-2">
             <div class="flex items-center justify-between border-b pb-2">
@@ -458,21 +515,22 @@
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="text-center py-4 text-xs text-slate-400">
-      <p>ระบบลงเวลาปฏิบัติราชการ โรงเรียนบ้านหนองหอย สพป.ขอนแก่น เขต 5</p>
-      <p class="text-[11px] mt-0.5">อำนวยการโดย นายกิจวัฒน์ แสนศรีระ | พร้อมมาสคอตน้องหอยเทค (HoiTech)</p>
+    <!-- Footer with Developer Credit in Exact Single Line -->
+    <footer class="w-full text-center py-3 sm:py-4 px-2">
+      <div class="w-full overflow-hidden text-ellipsis whitespace-nowrap text-[10px] sm:text-xs text-slate-500 font-medium">
+        พัฒนาโดย นายนพคุณ สืบเลย โรงเรียนสีชมพูศึกษา อบจ.ขอนแก่น
+      </div>
     </footer>
   </div>
 
   <!-- Modal: Google Sheets Settings -->
-  <div id="configModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-sky-100 space-y-4">
-      <div class="flex items-center justify-between border-b pb-3">
-        <h3 class="font-bold text-slate-800 text-base flex items-center gap-2">
+  <div id="configModal" class="hidden fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4">
+    <div class="bg-white rounded-2xl sm:rounded-3xl max-w-lg w-full p-4 sm:p-6 shadow-2xl border border-sky-100 space-y-3 sm:space-y-4 max-h-[90vh] overflow-y-auto custom-scroll">
+      <div class="flex items-center justify-between border-b pb-2.5">
+        <h3 class="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-2">
           <i data-lucide="settings" class="w-5 h-5 text-sky-600"></i> ตั้งค่า Google Sheets Web App
         </h3>
-        <button onclick="closeConfigModal()" class="text-slate-400 hover:text-slate-600">✕</button>
+        <button onclick="closeConfigModal()" class="text-slate-400 hover:text-slate-600 p-1">✕</button>
       </div>
 
       <div class="space-y-3">
@@ -486,10 +544,10 @@
         </div>
 
         <!-- Google Apps Script Code Accordion / Copy Box -->
-        <div class="mt-3 p-3 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+        <div class="mt-2 p-3 bg-slate-50 border border-slate-200 rounded-xl space-y-2">
           <div class="flex items-center justify-between">
             <span class="text-xs font-bold text-slate-700 flex items-center gap-1.5">
-              <i data-lucide="code" class="w-3.5 h-3.5 text-sky-600"></i> โค้ด Apps Script ป้องกันข้อมูลซ้ำ (Update ล่าสุด)
+              <i data-lucide="code" class="w-3.5 h-3.5 text-sky-600"></i> โค้ด Apps Script ป้องกันข้อมูลซ้ำ
             </span>
             <button type="button" onclick="copyAppsScriptCode()" class="text-[11px] font-bold text-sky-600 hover:text-sky-800 flex items-center gap-1 bg-white px-2 py-1 rounded-lg border border-slate-200 shadow-2xs">
               <i data-lucide="copy" class="w-3 h-3"></i> คัดลอกโค้ด
@@ -502,15 +560,15 @@
         </div>
       </div>
 
-      <div class="flex items-center justify-end gap-2 pt-3 border-t">
-        <button onclick="closeConfigModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">ยกเลิก</button>
-        <button onclick="saveSheetsConfig()" class="px-4 py-2 rounded-xl text-xs font-bold text-white bg-sky-600 hover:bg-sky-700">บันทึกการตั้งค่า</button>
+      <div class="flex items-center justify-end gap-2 pt-2.5 border-t">
+        <button onclick="closeConfigModal()" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">ยกเลิก</button>
+        <button onclick="saveSheetsConfig()" class="px-4 py-1.5 rounded-xl text-xs font-bold text-white bg-sky-600 hover:bg-sky-700">บันทึกการตั้งค่า</button>
       </div>
     </div>
   </div>
 
   <!-- Toast Notification -->
-  <div id="toast" class="hidden fixed bottom-6 right-6 z-50 bg-slate-900 text-white text-xs sm:text-sm px-4 py-3 rounded-2xl shadow-xl flex items-center gap-2 transition-transform transform translate-y-5 opacity-0"></div>
+  <div id="toast" class="hidden fixed bottom-4 sm:bottom-6 right-4 sm:right-6 z-50 bg-slate-900 text-white text-xs sm:text-sm px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-2xl shadow-xl flex items-center gap-2 transition-transform transform translate-y-5 opacity-0"></div>
 
   <!-- Application Script -->
   <script>
@@ -528,7 +586,7 @@
     let autoSyncSheets = true;
     let currentLogType = 'IN'; // 'IN' or 'OUT'
 
-    // Google Apps Script source code that handles deduplication in Sheet
+    // Google Apps Script source code
     const appsScriptSource = `function doPost(e) {
   var lock = LockService.getScriptLock();
   lock.tryLock(10000);
@@ -560,13 +618,12 @@
         var targetType = (data.type || "").toString().trim();
         var targetDate = (data.date || "").toString().trim();
 
-        // ตรวจสอบว่าเป็นคนเดียวกัน วันเดียวกัน และประเภทเดียวกันหรือไม่
         var isSameType = (rowType === targetType) || 
                          (rowType.indexOf("เข้า") !== -1 && targetType.indexOf("เข้า") !== -1) ||
                          (rowType.indexOf("ออก") !== -1 && targetType.indexOf("ออก") !== -1);
 
         if (rowName === targetName && rowDate === targetDate && isSameType) {
-          existingRow = i + 2; // +2 เพราะเริ่มจากแถวที่ 2
+          existingRow = i + 2;
           break;
         }
       }
@@ -586,10 +643,8 @@
     ];
 
     if (existingRow !== -1) {
-      // อัปเดตทับแถวเดิม (ไม่เพิ่มแถวใหม่)
       sheet.getRange(existingRow, 1, 1, 10).setValues([rowValues]);
     } else {
-      // ถ้าเป็นรายการใหม่ ให้เพิ่มแถวต่อท้าย
       sheet.appendRow(rowValues);
     }
 
@@ -610,6 +665,7 @@
       "สวัสดีครับคุณครู! วันนี้พร้อมสร้างสรรค์การเรียนรู้ให้เด็กๆ แล้วหรือยังครับ?",
       "อย่าลืมบันทึกเวลาปฏิบัติงานก่อนเริ่มภารกิจวันนี้นะครับ!",
       "โรงเรียนบ้านหนองหอย 'ความรู้ คู่คุณธรรม' ยินดีต้อนรับครับ",
+      "ระบบจะปรับสถานะ 'สาย' ให้อัตโนมัติหากลงเวลาเข้าหลัง 08:15 น. ครับผม",
       "หอยเทคตรวจเช็กระบบพร้อมส่งข้อมูลเข้า Google Sheets เรียบร้อยครับผม!",
       "ขอให้เป็นวันที่สดใสและมีความสุขกับการจัดการเรียนการสอนนะครับ!"
     ];
@@ -622,7 +678,7 @@
       }
     }
 
-    // Thai Clock & Date Engine
+    // Thai Clock & Date Engine with Item 5: Auto-late check
     function startDigitalClock() {
       function update() {
         const now = new Date();
@@ -646,9 +702,36 @@
 
         if (timeEl) timeEl.textContent = `${hours}:${minutes}:${seconds} น.`;
         if (dateEl) dateEl.textContent = `${dayName}ที่ ${dateNum} ${monthName} พ.ศ. ${yearBE}`;
+
+        // Item 5: ตรวจจับเวลามาสายอัตโนมัติ (เกณฑ์โรงเรียน: เข้างานหลัง 08:15 น.)
+        checkAutoLateStatus(now);
       }
       update();
       setInterval(update, 1000);
+    }
+
+    // Item 5 Function: Auto-select Late status after 08:15 for Clock-IN
+    let userManuallyChangedStatus = false;
+    function checkAutoLateStatus(now) {
+      if (currentLogType !== 'IN' || userManuallyChangedStatus) return;
+      const statusSelect = document.getElementById('statusSelect');
+      const notice = document.getElementById('autoLateNotice');
+      if (!statusSelect) return;
+
+      const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
+      const lateThresholdMinutes = 8 * 60 + 15; // 08:15 น.
+
+      if (currentTotalMinutes > lateThresholdMinutes) {
+        if (statusSelect.value === 'ปกติ') {
+          statusSelect.value = 'สาย';
+          if (notice) notice.classList.remove('hidden');
+        }
+      } else {
+        if (statusSelect.value === 'สาย') {
+          statusSelect.value = 'ปกติ';
+          if (notice) notice.classList.add('hidden');
+        }
+      }
     }
 
     // Navigation Switcher
@@ -659,7 +742,7 @@
         const btn = document.getElementById(`btn-${t}`);
         if (el) el.classList.add('hidden');
         if (btn) {
-          btn.classList.remove('bg-sky-600', 'text-white', 'shadow-md');
+          btn.classList.remove('bg-sky-600', 'text-white', 'shadow-xs');
           btn.classList.add('text-slate-600', 'hover:bg-slate-100');
         }
       });
@@ -668,12 +751,15 @@
       const activeBtn = document.getElementById(`btn-${tabId}`);
       if (activeEl) activeEl.classList.remove('hidden');
       if (activeBtn) {
-        activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-md');
+        activeBtn.classList.add('bg-sky-600', 'text-white', 'shadow-xs');
         activeBtn.classList.remove('text-slate-600', 'hover:bg-slate-100');
       }
 
       if (tabId === 'tab-directory') renderStaffCards();
-      if (tabId === 'tab-history') renderAttendanceTable();
+      if (tabId === 'tab-history') {
+        populateFilterDropdown();
+        renderAttendanceTable();
+      }
       if (tabId === 'tab-reports') renderAllReports();
     }
 
@@ -685,7 +771,7 @@
 
       staffMembers.forEach(staff => {
         const row = document.createElement('div');
-        row.className = 'flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-sky-50 transition border border-slate-100 cursor-pointer';
+        row.className = 'flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-sky-50 transition border border-slate-100 cursor-pointer touch-target';
         row.onclick = () => {
           document.getElementById('personnelSelect').value = staff.id;
           showToast(`เลือก: ${staff.name}`);
@@ -693,18 +779,18 @@
 
         const initial = staff.name.startsWith('นาย') ? staff.name.charAt(3) : staff.name.charAt(6) || staff.name.charAt(0);
         const avatarHtml = staff.image 
-          ? `<img src="${staff.image}" alt="${staff.name}" class="w-8 h-8 rounded-lg object-cover object-top border border-amber-300" onerror="this.onerror=null; this.outerHTML='<div class=\\'w-8 h-8 rounded-lg bg-sky-700 text-white flex items-center justify-center font-bold text-xs\\'>${initial}</div>'">`
-          : `<div class="w-8 h-8 rounded-lg ${staff.isLeader ? 'bg-sky-700 text-white' : 'bg-sky-100 text-sky-800'} flex items-center justify-center font-bold text-xs">${initial}</div>`;
+          ? `<img src="${staff.image}" alt="${staff.name}" class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg object-cover object-top border border-amber-300" onerror="this.onerror=null; this.outerHTML='<div class=\\'w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-sky-700 text-white flex items-center justify-center font-bold text-xs\\'>${initial}</div>'">`
+          : `<div class="w-7 h-7 sm:w-8 sm:h-8 rounded-lg ${staff.isLeader ? 'bg-sky-700 text-white' : 'bg-sky-100 text-sky-800'} flex items-center justify-center font-bold text-xs">${initial}</div>`;
 
         row.innerHTML = `
-          <div class="flex items-center gap-2.5">
+          <div class="flex items-center gap-2 min-w-0">
             ${avatarHtml}
-            <div>
-              <p class="text-xs font-bold text-slate-800">${staff.name}</p>
-              <p class="text-[10px] text-slate-500">${staff.position}</p>
+            <div class="truncate">
+              <p class="text-xs font-bold text-slate-800 truncate">${staff.name}</p>
+              <p class="text-[10px] text-slate-500 truncate">${staff.position}</p>
             </div>
           </div>
-          <span class="text-[10px] text-sky-700 font-semibold bg-sky-100 px-2 py-0.5 rounded-md">เลือก</span>
+          <span class="text-[10px] text-sky-700 font-semibold bg-sky-100 px-2 py-0.5 rounded-md flex-shrink-0">เลือก</span>
         `;
         container.appendChild(row);
       });
@@ -718,32 +804,32 @@
 
       staffMembers.forEach(staff => {
         const card = document.createElement('div');
-        card.className = `bg-white rounded-3xl p-5 border ${staff.isLeader ? 'border-amber-300 ring-1 ring-amber-200' : 'border-slate-200'} shadow-sm flex flex-col justify-between space-y-4`;
+        card.className = `bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border ${staff.isLeader ? 'border-amber-300 ring-1 ring-amber-200' : 'border-slate-200'} shadow-xs flex flex-col justify-between space-y-3 sm:space-y-4`;
 
         const initial = staff.name.startsWith('นาย') ? staff.name.charAt(3) : staff.name.charAt(6) || staff.name.charAt(0);
         const avatarHtml = staff.image 
-          ? `<img src="${staff.image}" alt="${staff.name}" class="w-16 h-16 rounded-2xl object-cover object-top border-2 border-amber-300 shadow-md" onerror="this.onerror=null; this.outerHTML='<div class=\\'w-16 h-16 rounded-2xl bg-sky-700 text-white flex items-center justify-center font-bold text-xl\\'>${initial}</div>'">`
-          : `<div class="w-16 h-16 rounded-2xl ${staff.isLeader ? 'bg-sky-700 text-white' : 'bg-sky-100 text-sky-800'} flex items-center justify-center font-bold text-xl shadow-xs">${initial}</div>`;
+          ? `<img src="${staff.image}" alt="${staff.name}" class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl object-cover object-top border-2 border-amber-300 shadow-md" onerror="this.onerror=null; this.outerHTML='<div class=\\'w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-sky-700 text-white flex items-center justify-center font-bold text-xl\\'>${initial}</div>'">`
+          : `<div class="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl ${staff.isLeader ? 'bg-sky-700 text-white' : 'bg-sky-100 text-sky-800'} flex items-center justify-center font-bold text-xl shadow-xs">${initial}</div>`;
 
         card.innerHTML = `
           <div>
             <div class="flex items-start justify-between">
               ${avatarHtml}
-              <span class="text-[11px] px-2.5 py-1 rounded-full font-bold ${staff.isLeader ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-slate-100 text-slate-700'}">
+              <span class="text-[10px] sm:text-[11px] px-2.5 py-1 rounded-full font-bold ${staff.isLeader ? 'bg-amber-100 text-amber-800 border border-amber-300' : 'bg-slate-100 text-slate-700'}">
                 ${staff.isLeader ? 'ผู้อำนวยการโรงเรียน' : 'ครูผู้สอน'}
               </span>
             </div>
-            <div class="mt-3">
-              <h3 class="font-extrabold text-slate-800 text-base">${staff.name}</h3>
+            <div class="mt-2.5 sm:mt-3">
+              <h3 class="font-extrabold text-slate-800 text-sm sm:text-base">${staff.name}</h3>
               <p class="text-xs text-sky-700 font-semibold">${staff.position}</p>
-              <p class="text-[11px] text-slate-400 mt-1">โรงเรียนบ้านหนองหอย สพป.ขอนแก่น เขต 5</p>
+              <p class="text-[11px] text-slate-400 mt-0.5 sm:mt-1">โรงเรียนบ้านหนองหอย สพป.ขอนแก่น เขต 5</p>
             </div>
           </div>
-          <div class="pt-3 border-t border-slate-100 flex items-center justify-between">
-            <button onclick="pickStaffAndClockIn(${staff.id})" class="text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5 shadow-xs">
+          <div class="pt-2.5 border-t border-slate-100 flex items-center justify-between">
+            <button onclick="pickStaffAndClockIn(${staff.id})" class="text-xs font-bold text-white bg-sky-600 hover:bg-sky-700 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-xl transition flex items-center gap-1.5 shadow-xs">
               <i data-lucide="check" class="w-3.5 h-3.5"></i> ลงเวลาคนนี้
             </button>
-            <span class="text-[11px] text-emerald-600 font-medium">พร้อมปฏิบัติราชการ</span>
+            <span class="text-[10px] sm:text-[11px] text-emerald-600 font-medium">พร้อมปฏิบัติราชการ</span>
           </div>
         `;
         container.appendChild(card);
@@ -765,8 +851,24 @@
           select.appendChild(opt);
         });
       }
+      populateFilterDropdown();
       const statTotal = document.getElementById('statCardTotal');
       if (statTotal) statTotal.textContent = `${staffMembers.length} ท่าน`;
+    }
+
+    // Populate filter select on history tab (Item 4)
+    function populateFilterDropdown() {
+      const filterPerson = document.getElementById('filterPerson');
+      if (!filterPerson) return;
+      const currentVal = filterPerson.value;
+      filterPerson.innerHTML = '<option value="">-- บุคลากรทุกคน --</option>';
+      staffMembers.forEach(staff => {
+        const opt = document.createElement('option');
+        opt.value = staff.name.trim();
+        opt.textContent = staff.name;
+        filterPerson.appendChild(opt);
+      });
+      filterPerson.value = currentVal;
     }
 
     function pickStaffAndClockIn(staffId) {
@@ -785,6 +887,7 @@
       const btnOut = document.getElementById('btnTypeOut');
       const submitText = document.getElementById('submitBtnText');
       const badge = document.getElementById('badgeCurrentType');
+      const notice = document.getElementById('autoLateNotice');
 
       if (type === 'IN') {
         btnIn?.classList.add('bg-sky-500', 'text-white', 'shadow');
@@ -794,8 +897,10 @@
         if (submitText) submitText.textContent = 'ยืนยันลงเวลาเข้าปฏิบัติราชการ';
         if (badge) {
           badge.textContent = 'เข้าปฏิบัติราชการ';
-          badge.className = 'text-xs px-2.5 py-1 rounded-full font-bold bg-sky-100 text-sky-800 border border-sky-200';
+          badge.className = 'text-[11px] sm:text-xs px-2.5 py-0.5 rounded-full font-bold bg-sky-100 text-sky-800 border border-sky-200';
         }
+        userManuallyChangedStatus = false;
+        checkAutoLateStatus(new Date());
       } else {
         btnOut?.classList.add('bg-rose-500', 'text-white', 'shadow');
         btnOut?.classList.remove('bg-transparent', 'text-sky-100');
@@ -804,8 +909,9 @@
         if (submitText) submitText.textContent = 'ยืนยันลงเวลาออกปฏิบัติราชการ';
         if (badge) {
           badge.textContent = 'ออกปฏิบัติราชการ';
-          badge.className = 'text-xs px-2.5 py-1 rounded-full font-bold bg-rose-100 text-rose-800 border border-rose-200';
+          badge.className = 'text-[11px] sm:text-xs px-2.5 py-0.5 rounded-full font-bold bg-rose-100 text-rose-800 border border-rose-200';
         }
+        if (notice) notice.classList.add('hidden');
       }
     }
 
@@ -854,8 +960,7 @@
       if (existingIndex !== -1) {
         // อัปเดตรายการเดิมเป็นเวลาล่าสุด และเลื่อนขึ้นมาอันดับแรก
         const oldTime = attendanceLogs[existingIndex].time;
-        record.id = attendanceLogs[existingIndex].id; // รักษารหัสเดิม
-        // ลบรายการเดิมออกแล้วนำรายการล่าสุดใส่บนสุด
+        record.id = attendanceLogs[existingIndex].id;
         attendanceLogs.splice(existingIndex, 1);
         attendanceLogs.unshift(record);
         showToast(`🔄 อัปเดตเวลาล่าสุดของ ${staff.name} (${oldTime} ➔ ${timeStr})`);
@@ -913,35 +1018,89 @@
       showToast('☁️ ส่งรายการทั้งหมดขึ้น Google Sheets เรียบร้อย');
     }
 
+    // Item 4: Search & Filter Logic Implementation
+    function getFilteredAttendanceLogs() {
+      const keyword = (document.getElementById('filterKeyword')?.value || '').toLowerCase().trim();
+      const person = (document.getElementById('filterPerson')?.value || '').trim();
+      const type = document.getElementById('filterType')?.value || '';
+      const status = document.getElementById('filterStatus')?.value || '';
+
+      return attendanceLogs.filter(log => {
+        // Match keyword (Name or Notes)
+        const matchKeyword = !keyword || 
+          (log.name && log.name.toLowerCase().includes(keyword)) ||
+          (log.notes && log.notes.toLowerCase().includes(keyword));
+
+        // Match Person
+        const matchPerson = !person || (log.name && log.name.trim() === person);
+
+        // Match Type (IN / OUT)
+        let matchType = true;
+        if (type === 'IN') {
+          matchType = log.type && log.type.includes('เข้า');
+        } else if (type === 'OUT') {
+          matchType = log.type && log.type.includes('ออก');
+        }
+
+        // Match Status
+        let matchStatus = true;
+        if (status) {
+          matchStatus = log.status && log.status.includes(status);
+        }
+
+        return matchKeyword && matchPerson && matchType && matchStatus;
+      });
+    }
+
+    function resetFilters() {
+      if (document.getElementById('filterKeyword')) document.getElementById('filterKeyword').value = '';
+      if (document.getElementById('filterPerson')) document.getElementById('filterPerson').value = '';
+      if (document.getElementById('filterType')) document.getElementById('filterType').value = '';
+      if (document.getElementById('filterStatus')) document.getElementById('filterStatus').value = '';
+      renderAttendanceTable();
+    }
+
     function renderAttendanceTable() {
       const tbody = document.getElementById('attendanceTableBody');
+      const badge = document.getElementById('filterCountBadge');
       if (!tbody) return;
       tbody.innerHTML = '';
 
-      if (attendanceLogs.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400">ยังไม่มีบันทึกการลงเวลาในวันนี้</td></tr>`;
+      const filtered = getFilteredAttendanceLogs();
+
+      if (badge) {
+        badge.textContent = `แสดง ${filtered.length} จาก ${attendanceLogs.length} รายการ`;
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" class="text-center py-8 text-slate-400 font-medium">ไม่พบรายการลงเวลาตามเงื่อนไขที่เลือก</td></tr>`;
         return;
       }
 
-      attendanceLogs.forEach((log, index) => {
+      filtered.forEach((log, index) => {
         const tr = document.createElement('tr');
         tr.className = 'border-b border-slate-100 hover:bg-sky-50/50 transition';
         const typeBadge = log.type.includes('เข้า') 
-          ? '<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-sky-100 text-sky-800">เข้างาน</span>'
-          : '<span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-100 text-rose-800">ออกงาน</span>';
+          ? '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-sky-100 text-sky-800">เข้างาน</span>'
+          : '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800">ออกงาน</span>';
+
+        let statusClass = 'bg-slate-100 text-slate-700';
+        if (log.status.includes('สาย')) statusClass = 'bg-amber-100 text-amber-800 font-bold';
+        if (log.status.includes('ปกติ')) statusClass = 'bg-emerald-50 text-emerald-700 font-medium';
+        if (log.status.includes('ลา')) statusClass = 'bg-rose-50 text-rose-700 font-medium';
 
         tr.innerHTML = `
-          <td class="py-3 px-4 text-xs font-semibold text-slate-500">${index + 1}</td>
-          <td class="py-3 px-4">
-            <div class="font-bold text-slate-800 text-sm">${log.name}</div>
-            <div class="text-[11px] text-slate-500">${log.position}</div>
+          <td class="py-2.5 sm:py-3 px-3 sm:px-4 text-xs font-semibold text-slate-400 text-center">${index + 1}</td>
+          <td class="py-2.5 sm:py-3 px-3 sm:px-4">
+            <div class="font-bold text-slate-800 text-xs sm:text-sm">${log.name}</div>
+            <div class="text-[10px] sm:text-[11px] text-slate-500">${log.position}</div>
           </td>
-          <td class="py-3 px-4 text-xs text-slate-600 font-medium">${log.date}</td>
-          <td class="py-3 px-4 text-xs font-bold text-slate-700">${log.time}</td>
-          <td class="py-3 px-4">${typeBadge}</td>
-          <td class="py-3 px-4 text-xs">
-            <span class="px-2 py-0.5 rounded-full font-medium bg-slate-100 text-slate-700">${log.status}</span>
-            ${log.notes ? `<p class="text-[10px] text-slate-400 mt-0.5">${log.notes}</p>` : ''}
+          <td class="py-2.5 sm:py-3 px-3 sm:px-4 text-xs text-slate-600 font-medium whitespace-nowrap">${log.date}</td>
+          <td class="py-2.5 sm:py-3 px-3 sm:px-4 text-xs font-bold text-slate-700 whitespace-nowrap">${log.time}</td>
+          <td class="py-2.5 sm:py-3 px-3 sm:px-4 whitespace-nowrap">${typeBadge}</td>
+          <td class="py-2.5 sm:py-3 px-3 sm:px-4 text-xs">
+            <span class="px-2 py-0.5 rounded-full text-[11px] ${statusClass}">${log.status}</span>
+            ${log.notes ? `<p class="text-[10px] text-slate-400 mt-0.5 truncate max-w-[180px]">${log.notes}</p>` : ''}
           </td>
         `;
         tbody.appendChild(tr);
@@ -951,7 +1110,7 @@
     function updateDailyStatCards() {
       const todayIn = attendanceLogs.filter(l => l.type.includes('เข้า')).length;
       const todayDuty = attendanceLogs.filter(l => l.status.includes('เวร') || l.status.includes('ราชการ')).length;
-      const todayLeave = attendanceLogs.filter(l => l.status.includes('ลา')).length;
+      const todayLeave = attendanceLogs.filter(l => l.status.includes('ลา') || l.status.includes('สาย')).length;
 
       const cardPresent = document.getElementById('statCardPresent');
       const cardDuty = document.getElementById('statCardDuty');
@@ -971,48 +1130,50 @@
       if (reportDate) reportDate.textContent = `${now.getDate()} ${thaiMonths[now.getMonth()]} ${now.getFullYear() + 543}`;
       if (reportMonth) reportMonth.textContent = `ประจำเดือน ${thaiMonths[now.getMonth()]}`;
 
-      // Populate Mock summaries
+      // Populate summaries
       const dailyEl = document.getElementById('dailyReportContent');
       if (dailyEl) {
         dailyEl.innerHTML = `
-          <p class="flex justify-between"><span>มาปฏิบัติหน้าที่ปกติ:</span> <strong class="text-slate-800">${attendanceLogs.filter(l => l.status === 'ปกติ').length} คน</strong></p>
-          <p class="flex justify-between"><span>ปฏิบัติหน้าที่เวร/ราชการ:</span> <strong class="text-slate-800">${attendanceLogs.filter(l => l.status.includes('เวร') || l.status.includes('ราชการ')).length} คน</strong></p>
-          <p class="flex justify-between"><span>ลาป่วย/ลากิจ:</span> <strong class="text-slate-800">${attendanceLogs.filter(l => l.status.includes('ลา')).length} คน</strong></p>
+          <p class="flex justify-between py-0.5"><span>มาปฏิบัติหน้าที่ปกติ:</span> <strong class="text-slate-800">${attendanceLogs.filter(l => l.status === 'ปกติ').length} คน</strong></p>
+          <p class="flex justify-between py-0.5"><span>มาสาย:</span> <strong class="text-amber-700">${attendanceLogs.filter(l => l.status.includes('สาย')).length} คน</strong></p>
+          <p class="flex justify-between py-0.5"><span>ปฏิบัติหน้าที่เวร/ราชการ:</span> <strong class="text-slate-800">${attendanceLogs.filter(l => l.status.includes('เวร') || l.status.includes('ราชการ')).length} คน</strong></p>
+          <p class="flex justify-between py-0.5"><span>ลาป่วย/ลากิจ:</span> <strong class="text-slate-800">${attendanceLogs.filter(l => l.status.includes('ลา')).length} คน</strong></p>
         `;
       }
 
       const weeklyEl = document.getElementById('weeklyReportContent');
       if (weeklyEl) {
         weeklyEl.innerHTML = `
-          <p class="flex justify-between"><span>ร้อยละการมาปฏิบัติงาน:</span> <strong class="text-emerald-600">100%</strong></p>
-          <p class="flex justify-between"><span>การปฏิบัติหน้าที่เวรยาม:</span> <strong class="text-slate-800">ครบถ้วนตามคำสั่ง</strong></p>
+          <p class="flex justify-between py-0.5"><span>ร้อยละการมาปฏิบัติงาน:</span> <strong class="text-emerald-600">100%</strong></p>
+          <p class="flex justify-between py-0.5"><span>การปฏิบัติหน้าที่เวรยาม:</span> <strong class="text-slate-800">ครบถ้วนตามคำสั่ง</strong></p>
         `;
       }
 
       const monthlyEl = document.getElementById('monthlyReportContent');
       if (monthlyEl) {
         monthlyEl.innerHTML = `
-          <p class="flex justify-between"><span>วันทำการในเดือนนี้:</span> <strong class="text-slate-800">20 วันทำการ</strong></p>
-          <p class="flex justify-between"><span>มาปฏิบัติงานเฉลี่ย:</span> <strong class="text-sky-700">100%</strong></p>
+          <p class="flex justify-between py-0.5"><span>วันทำการในเดือนนี้:</span> <strong class="text-slate-800">20 วันทำการ</strong></p>
+          <p class="flex justify-between py-0.5"><span>มาปฏิบัติงานเฉลี่ย:</span> <strong class="text-sky-700">100%</strong></p>
         `;
       }
 
       const semesterEl = document.getElementById('semesterReportContent');
       if (semesterEl) {
         semesterEl.innerHTML = `
-          <p class="flex justify-between"><span>เกณฑ์วันลาสะสม:</span> <strong class="text-slate-800">ไม่เกินเกณฑ์ ก.ค.ศ.</strong></p>
-          <p class="flex justify-between"><span>ประเมินผลการมาปฏิบัติงาน:</span> <strong class="text-emerald-600 font-bold">ระดับดีเด่น</strong></p>
+          <p class="flex justify-between py-0.5"><span>เกณฑ์วันลาสะสม:</span> <strong class="text-slate-800">ไม่เกินเกณฑ์ ก.ค.ศ.</strong></p>
+          <p class="flex justify-between py-0.5"><span>ประเมินผลการมาปฏิบัติงาน:</span> <strong class="text-emerald-600 font-bold">ระดับดีเด่น</strong></p>
         `;
       }
     }
 
     function exportToCSV() {
-      if (attendanceLogs.length === 0) {
+      const recordsToExport = getFilteredAttendanceLogs();
+      if (recordsToExport.length === 0) {
         showToast('ไม่มีข้อมูลสำหรับส่งออก');
         return;
       }
       let csv = '\uFEFFชื่อ-สกุล,ตำแหน่ง,วันที่,เวลา,ประเภท,สถานะ,หมายเหตุ\n';
-      attendanceLogs.forEach(r => {
+      recordsToExport.forEach(r => {
         csv += `"${r.name}","${r.position}","${r.date}","${r.time}","${r.type}","${r.status}","${r.notes || ''}"\n`;
       });
       const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
@@ -1111,7 +1272,6 @@
         const savedLogs = localStorage.getItem('nbh_attendance_2026');
         if (savedLogs) {
           const rawLogs = JSON.parse(savedLogs);
-          // ทำความสะอาดข้อมูลเดิมที่เคยมีซ้ำ: รวมและเก็บเฉพาะรายการเวลาล่าสุดของแต่ละคนในวันเดียวกัน
           const cleanedMap = new Map();
           rawLogs.forEach(item => {
             const isEntry = item.type && item.type.includes('เข้า');
@@ -1122,7 +1282,6 @@
             if (!cleanedMap.has(key)) {
               cleanedMap.set(key, item);
             } else {
-              // ถ้ามีอยู่แล้ว ให้เปรียบเทียบเวลา แล้วเก็บตัวที่ใหม่กว่า
               const existing = cleanedMap.get(key);
               if ((item.time || '') > (existing.time || '')) {
                 cleanedMap.set(key, item);
@@ -1158,6 +1317,14 @@
       renderAttendanceTable();
       updateDailyStatCards();
       renderAllReports();
+
+      // Listen for manual change on status dropdown
+      const statusEl = document.getElementById('statusSelect');
+      if (statusEl) {
+        statusEl.addEventListener('change', () => {
+          userManuallyChangedStatus = true;
+        });
+      }
 
       if (window.lucide && typeof lucide.createIcons === 'function') {
         lucide.createIcons();
