@@ -532,6 +532,64 @@
             </div>
           </div>
         </div>
+
+        <!-- 5. Interactive Individual Staff Summary Table with Time Period Selector -->
+        <div class="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-5 border border-sky-100 shadow-xs space-y-3">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b pb-3">
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm sm:text-base flex items-center gap-2">
+                <i data-lucide="user-check" class="w-4 h-4 sm:w-5 sm:h-5 text-sky-600"></i>
+                ตารางสรุปสถิติการปฏิบัติงานรายบุคคล
+              </h4>
+              <p class="text-xs text-slate-500">จำแนกการมาปฏิบัติราชการ มาสาย เวรยาม ไปราชการ และการลาของครูแต่ละท่าน</p>
+            </div>
+            
+            <!-- Period Selector Tabs (Day / Week / Month / Semester) -->
+            <div class="no-print flex items-center bg-slate-100 p-1 rounded-xl self-start md:self-auto">
+              <button type="button" onclick="setIndividualReportPeriod('day')" id="btn-period-day" class="px-3 py-1.5 rounded-lg text-xs font-bold transition bg-sky-600 text-white shadow-xs">
+                รายวัน
+              </button>
+              <button type="button" onclick="setIndividualReportPeriod('week')" id="btn-period-week" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900">
+                รายสัปดาห์
+              </button>
+              <button type="button" onclick="setIndividualReportPeriod('month')" id="btn-period-month" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900">
+                รายเดือน
+              </button>
+              <button type="button" onclick="setIndividualReportPeriod('semester')" id="btn-period-semester" class="px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900">
+                รายเทอม
+              </button>
+            </div>
+          </div>
+
+          <!-- Dynamic Period Label Badge -->
+          <div class="flex items-center justify-between text-xs text-slate-500">
+            <span>ช่วงข้อมูลที่กำลังแสดง: <strong id="individualPeriodLabel" class="text-sky-700 font-bold">วันนี้</strong></span>
+            <span class="text-[11px] text-slate-400">* คิดคำนวณจากรายการลงเวลาเข้าปฏิบัติราชการ</span>
+          </div>
+
+          <!-- Individual Table -->
+          <div class="overflow-x-auto custom-scroll">
+            <table class="w-full text-left border-collapse min-w-[700px]">
+              <thead>
+                <tr class="bg-slate-50 text-[11px] font-bold text-slate-600 uppercase border-b border-slate-200">
+                  <th class="py-2.5 px-3 w-10 text-center">#</th>
+                  <th class="py-2.5 px-3">ชื่อ - สกุล / ตำแหน่ง</th>
+                  <th class="py-2.5 px-2.5 text-center text-emerald-700">ปกติ</th>
+                  <th class="py-2.5 px-2.5 text-center text-amber-700">สาย</th>
+                  <th class="py-2.5 px-2.5 text-center text-sky-700">เวรยาม</th>
+                  <th class="py-2.5 px-2.5 text-center text-purple-700">ราชการ</th>
+                  <th class="py-2.5 px-2.5 text-center text-blue-700">ลากิจ</th>
+                  <th class="py-2.5 px-2.5 text-center text-rose-700">ลาป่วย</th>
+                  <th class="py-2.5 px-3 text-center text-slate-800 font-black">รวมมา (วัน)</th>
+                  <th class="py-2.5 px-3 text-center text-sky-800 font-black">% ปฏิบัติงาน</th>
+                </tr>
+              </thead>
+              <tbody id="individualReportTableBody" class="divide-y divide-slate-100 text-xs">
+                <!-- Rendered dynamically via JavaScript -->
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -611,6 +669,7 @@
     let autoSyncSheets = true;
     let currentLogType = 'IN'; // 'IN' or 'OUT'
     let currentSelectedStatus = 'ปกติ';
+    let currentIndividualPeriod = 'day'; // 'day', 'week', 'month', 'semester'
 
     // Status Styling Configuration
     const statusStyles = {
@@ -1233,6 +1292,160 @@
           <p class="flex justify-between py-0.5"><span>ประเมินผลการมาปฏิบัติงาน:</span> <strong class="text-emerald-600 font-bold">ระดับดีเด่น</strong></p>
         `;
       }
+
+      renderIndividualStaffReport();
+    }
+
+    // Set & switch period for Individual Staff Summary
+    function setIndividualReportPeriod(period) {
+      currentIndividualPeriod = period;
+      const periods = ['day', 'week', 'month', 'semester'];
+      periods.forEach(p => {
+        const btn = document.getElementById(`btn-period-${p}`);
+        if (!btn) return;
+        if (p === period) {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition bg-sky-600 text-white shadow-xs';
+        } else {
+          btn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold transition text-slate-600 hover:text-slate-900';
+        }
+      });
+      renderIndividualStaffReport();
+    }
+
+    // Filter attendance logs by selected time period
+    function getLogsByPeriod(period) {
+      const now = new Date();
+      const thaiMonthsShort = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
+      const todayDateStr = `${now.getDate()} ${thaiMonthsShort[now.getMonth()]} ${now.getFullYear() + 543}`;
+
+      if (period === 'day') {
+        return attendanceLogs.filter(log => log.date === todayDateStr);
+      }
+
+      if (period === 'week') {
+        // หาช่วงวันจันทร์ - วันอาทิตย์ของสัปดาห์ปัจจุบัน
+        const currentDay = now.getDay();
+        const diffToMonday = now.getDate() - (currentDay === 0 ? 6 : currentDay - 1);
+        const monday = new Date(now);
+        monday.setDate(diffToMonday);
+        monday.setHours(0, 0, 0, 0);
+
+        const sunday = new Date(monday);
+        sunday.setDate(monday.getDate() + 6);
+        sunday.setHours(23, 59, 59, 999);
+
+        return attendanceLogs.filter(log => {
+          if (!log.timestamp) return true;
+          const logDate = new Date(log.timestamp);
+          return logDate >= monday && logDate <= sunday;
+        });
+      }
+
+      if (period === 'month') {
+        const currentMonthStr = thaiMonthsShort[now.getMonth()];
+        const currentYearStr = String(now.getFullYear() + 543);
+        return attendanceLogs.filter(log => log.date && log.date.includes(currentMonthStr) && log.date.includes(currentYearStr));
+      }
+
+      if (period === 'semester') {
+        // ประจำภาคเรียน (แสดงข้อมูลทั้งหมดของภาคเรียนปัจจุบัน)
+        return attendanceLogs;
+      }
+
+      return attendanceLogs;
+    }
+
+    // Render Individual Staff Summary Table
+    function renderIndividualStaffReport() {
+      const tbody = document.getElementById('individualReportTableBody');
+      const label = document.getElementById('individualPeriodLabel');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+
+      const periodLogs = getLogsByPeriod(currentIndividualPeriod);
+
+      // อัปเดตป้ายกำกับช่วงเวลา
+      if (label) {
+        if (currentIndividualPeriod === 'day') label.textContent = 'ประจำวัน (วันนี้)';
+        else if (currentIndividualPeriod === 'week') label.textContent = 'ประจำสัปดาห์นี้ (จันทร์ - ศุกร์)';
+        else if (currentIndividualPeriod === 'month') label.textContent = 'ประจำเดือนนี้';
+        else if (currentIndividualPeriod === 'semester') label.textContent = 'ประจำภาคเรียนนี้ (ข้อมูลสะสม)';
+      }
+
+      // กำหนดฐานจำนวนวันทำการเปรียบเทียบตามช่วงเวลา
+      let expectedWorkDays = 1;
+      if (currentIndividualPeriod === 'day') expectedWorkDays = 1;
+      else if (currentIndividualPeriod === 'week') expectedWorkDays = 5;
+      else if (currentIndividualPeriod === 'month') expectedWorkDays = 20;
+      else if (currentIndividualPeriod === 'semester') expectedWorkDays = 100;
+
+      staffMembers.forEach((staff, index) => {
+        // นับเฉพาะรายการที่บันทึกประเภท "เข้าปฏิบัติราชการ"
+        const staffLogs = periodLogs.filter(l => 
+          ((l.staffId === staff.id) || (l.name && l.name.trim() === staff.name.trim())) &&
+          (l.type && l.type.includes('เข้า'))
+        );
+
+        let countNormal = 0;
+        let countLate = 0;
+        let countDuty = 0;
+        let countTrip = 0;
+        let countBizLeave = 0;
+        let countSickLeave = 0;
+
+        staffLogs.forEach(log => {
+          const st = log.status || '';
+          if (st.includes('ปกติ')) countNormal++;
+          else if (st.includes('สาย')) countLate++;
+          else if (st.includes('เวร')) countDuty++;
+          else if (st.includes('ราชการ')) countTrip++;
+          else if (st.includes('ลากิจ')) countBizLeave++;
+          else if (st.includes('ลาป่วย')) countSickLeave++;
+          else countNormal++;
+        });
+
+        // ยอดรวมวันที่มาปฏิบัติงานจริง (ปกติ + สาย + เวรยาม + ไปราชการ)
+        const totalPresent = countNormal + countLate + countDuty + countTrip;
+
+        // คำนวณเปอร์เซ็นต์ (% การมาปฏิบัติงาน)
+        let percent = 0;
+        if (currentIndividualPeriod === 'day') {
+          percent = totalPresent > 0 ? 100 : 0;
+        } else {
+          percent = Math.min(100, Math.round((totalPresent / expectedWorkDays) * 100));
+        }
+
+        const tr = document.createElement('tr');
+        tr.className = 'border-b border-slate-100 hover:bg-sky-50/40 transition';
+
+        tr.innerHTML = `
+          <td class="py-2.5 px-3 text-center text-slate-400 font-semibold">${index + 1}</td>
+          <td class="py-2.5 px-3">
+            <div class="font-bold text-slate-800 flex items-center gap-1.5">
+              <span>${staff.name}</span>
+              ${staff.isLeader ? '<span class="text-[9px] bg-amber-100 text-amber-800 font-bold px-1.5 py-0.2 rounded-md">ผอ.</span>' : ''}
+            </div>
+            <div class="text-[10px] text-slate-500">${staff.position}</div>
+          </td>
+          <td class="py-2.5 px-2.5 text-center font-bold text-emerald-600">${countNormal}</td>
+          <td class="py-2.5 px-2.5 text-center font-bold ${countLate > 0 ? 'text-amber-600' : 'text-slate-400'}">${countLate}</td>
+          <td class="py-2.5 px-2.5 text-center font-bold ${countDuty > 0 ? 'text-sky-600' : 'text-slate-400'}">${countDuty}</td>
+          <td class="py-2.5 px-2.5 text-center font-bold ${countTrip > 0 ? 'text-purple-600' : 'text-slate-400'}">${countTrip}</td>
+          <td class="py-2.5 px-2.5 text-center font-bold ${countBizLeave > 0 ? 'text-blue-600' : 'text-slate-400'}">${countBizLeave}</td>
+          <td class="py-2.5 px-2.5 text-center font-bold ${countSickLeave > 0 ? 'text-rose-600' : 'text-slate-400'}">${countSickLeave}</td>
+          <td class="py-2.5 px-3 text-center font-extrabold text-slate-800 bg-slate-50/70">${totalPresent}</td>
+          <td class="py-2.5 px-3 text-center">
+            <span class="inline-block px-2 py-0.5 rounded-full font-bold text-[11px] ${
+              percent >= 90 ? 'bg-emerald-100 text-emerald-800' : 
+              percent >= 75 ? 'bg-sky-100 text-sky-800' : 
+              percent > 0 ? 'bg-amber-100 text-amber-800' : 'bg-slate-100 text-slate-500'
+            }">
+              ${percent}%
+            </span>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
     }
 
     function exportToCSV() {
