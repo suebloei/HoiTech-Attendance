@@ -726,7 +726,8 @@
         return;
       }
 
-      const staff = staffMembers.find(s => s.id == staffSelect.value);
+      const selectedId = Number(staffSelect.value);
+      const staff = staffMembers.find(s => s.id === selectedId) || staffMembers.find(s => s.id == staffSelect.value);
       if (!staff) return;
 
       const now = new Date();
@@ -738,7 +739,7 @@
       const record = {
         id: Date.now(),
         staffId: staff.id,
-        name: staff.name,
+        name: staff.name.trim(),
         position: staff.position,
         type: typeStr,
         status: statusSelect ? statusSelect.value : 'ปกติ',
@@ -748,19 +749,24 @@
         timestamp: new Date().toISOString()
       };
 
-      // ตรวจสอบว่ามีการลงเวลาของบุคคลเดิม ประเภทเดียวกัน (เข้างาน/ออกงาน) ในวันเดียวกันหรือไม่
-      const existingIndex = attendanceLogs.findIndex(
-        item => item.staffId === staff.id && item.date === dateStr && item.type === typeStr
-      );
+      // ตรวจสอบคนเดียวกัน + วันเดียวกัน + ประเภทเดียวกัน (เข้างาน/ออกงาน)
+      const existingIndex = attendanceLogs.findIndex(item => {
+        const samePerson = (item.staffId === staff.id) || (item.name && item.name.trim() === staff.name.trim());
+        const sameDate = (item.date === dateStr);
+        const sameType = (item.type === typeStr) || (item.type && item.type.includes('เข้า') && typeStr.includes('เข้า')) || (item.type && item.type.includes('ออก') && typeStr.includes('ออก'));
+        return samePerson && sameDate && sameType;
+      });
 
       if (existingIndex !== -1) {
-        // กรณีพบรายการซ้ำ: แทนที่ด้วยเวลาและข้อมูลล่าสุด
+        // อัปเดตรายการเดิมเป็นเวลาล่าสุด และเลื่อนขึ้นมาอันดับแรก
         const oldTime = attendanceLogs[existingIndex].time;
-        record.id = attendanceLogs[existingIndex].id; // รหัสเดิม
-        attendanceLogs[existingIndex] = record;
+        record.id = attendanceLogs[existingIndex].id; // รักษารหัสเดิม
+        // ลบรายการเดิมออกแล้วนำรายการล่าสุดใส่บนสุด
+        attendanceLogs.splice(existingIndex, 1);
+        attendanceLogs.unshift(record);
         showToast(`🔄 อัปเดตเวลาล่าสุดของ ${staff.name} (${oldTime} ➔ ${timeStr})`);
       } else {
-        // กรณีเป็นรายการใหม่: เพิ่มไว้บนสุด
+        // รายการใหม่ เพิ่มไว้บนสุด
         attendanceLogs.unshift(record);
         showToast(`✅ บันทึกเวลาของ ${staff.name} สำเร็จ (${timeStr})`);
       }
@@ -981,7 +987,29 @@
         if (savedAuto) autoSyncSheets = JSON.parse(savedAuto);
 
         const savedLogs = localStorage.getItem('nbh_attendance_2026');
-        if (savedLogs) attendanceLogs = JSON.parse(savedLogs);
+        if (savedLogs) {
+          const rawLogs = JSON.parse(savedLogs);
+          // ทำความสะอาดข้อมูลเดิมที่เคยมีซ้ำ: รวมและเก็บเฉพาะรายการเวลาล่าสุดของแต่ละคนในวันเดียวกัน
+          const cleanedMap = new Map();
+          rawLogs.forEach(item => {
+            const isEntry = item.type && item.type.includes('เข้า');
+            const typeKey = isEntry ? 'IN' : 'OUT';
+            const personKey = (item.name ? item.name.trim() : item.staffId);
+            const key = `${personKey}_${item.date}_${typeKey}`;
+            
+            if (!cleanedMap.has(key)) {
+              cleanedMap.set(key, item);
+            } else {
+              // ถ้ามีอยู่แล้ว ให้เปรียบเทียบเวลา แล้วเก็บตัวที่ใหม่กว่า
+              const existing = cleanedMap.get(key);
+              if ((item.time || '') > (existing.time || '')) {
+                cleanedMap.set(key, item);
+              }
+            }
+          });
+          attendanceLogs = Array.from(cleanedMap.values());
+          saveStorageData();
+        }
       } catch (err) {
         console.error('Storage load error:', err);
       }
