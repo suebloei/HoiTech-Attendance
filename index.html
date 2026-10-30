@@ -187,17 +187,37 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div>
                   <div class="flex items-center justify-between mb-1">
-                    <label class="text-xs font-bold text-slate-700">สถานะการมาปฏิบัติงาน</label>
+                    <label class="text-xs font-bold text-slate-700">สถานะการมาปฏิบัติงาน *</label>
                     <span id="autoLateNotice" class="text-[10px] text-amber-600 font-semibold hidden">⏰ ระบบตั้งสายอัตโนมัติ (>08:15)</span>
                   </div>
-                  <select id="statusSelect" class="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm font-medium focus:ring-2 focus:ring-sky-500 focus:outline-none bg-slate-50 transition">
-                    <option value="ปกติ">ปกติ (ทันเวลา)</option>
-                    <option value="สาย">มาสาย</option>
-                    <option value="ปฏิบัติหน้าที่เวรยาม">ปฏิบัติหน้าที่เวรยาม</option>
-                    <option value="ไปราชการ/อบรม">ไปราชการ / อบรม</option>
-                    <option value="ลากิจ">ลากิจ</option>
-                    <option value="ลาป่วย">ลาป่วย</option>
-                  </select>
+                  <!-- Color Coded Visual Status Pills Selector -->
+                  <input type="hidden" id="statusSelect" value="ปกติ">
+                  <div class="grid grid-cols-3 gap-1.5" id="statusButtonGroup">
+                    <button type="button" onclick="selectStatusOption('ปกติ')" id="opt-ปกติ" class="status-btn px-2 py-2 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1 bg-emerald-500 text-white border-emerald-600 shadow-sm">
+                      <span class="w-2 h-2 rounded-full bg-white"></span>
+                      <span>ปกติ</span>
+                    </button>
+                    <button type="button" onclick="selectStatusOption('สาย')" id="opt-สาย" class="status-btn px-2 py-2 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1 bg-white text-amber-700 border-amber-200 hover:bg-amber-50">
+                      <span class="w-2 h-2 rounded-full bg-amber-500"></span>
+                      <span>สาย</span>
+                    </button>
+                    <button type="button" onclick="selectStatusOption('ปฏิบัติหน้าที่เวรยาม')" id="opt-ปฏิบัติหน้าที่เวรยาม" class="status-btn px-2 py-2 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1 bg-white text-sky-700 border-sky-200 hover:bg-sky-50">
+                      <span class="w-2 h-2 rounded-full bg-sky-500"></span>
+                      <span>เวรยาม</span>
+                    </button>
+                    <button type="button" onclick="selectStatusOption('ไปราชการ/อบรม')" id="opt-ไปราชการ/อบรม" class="status-btn px-2 py-2 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1 bg-white text-purple-700 border-purple-200 hover:bg-purple-50">
+                      <span class="w-2 h-2 rounded-full bg-purple-500"></span>
+                      <span>ไปราชการ</span>
+                    </button>
+                    <button type="button" onclick="selectStatusOption('ลากิจ')" id="opt-ลากิจ" class="status-btn px-2 py-2 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1 bg-white text-blue-700 border-blue-200 hover:bg-blue-50">
+                      <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+                      <span>ลากิจ</span>
+                    </button>
+                    <button type="button" onclick="selectStatusOption('ลาป่วย')" id="opt-ลาป่วย" class="status-btn px-2 py-2 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1 bg-white text-rose-700 border-rose-200 hover:bg-rose-50">
+                      <span class="w-2 h-2 rounded-full bg-rose-500"></span>
+                      <span>ลาป่วย</span>
+                    </button>
+                  </div>
                 </div>
                 <div>
                   <label class="block text-xs font-bold text-slate-700 mb-1">พิกัด GPS โรงเรียน</label>
@@ -572,19 +592,65 @@
 
   <!-- Application Script -->
   <script>
-    // Staff Personnel List
+    // Staff Personnel List updated with new official school roster
     let staffMembers = [
       { id: 1, name: 'นายกิจวัฒน์ แสนศรีระ', position: 'ผู้อำนวยการโรงเรียน', isLeader: true, image: 'kitchawat.jpg' },
-      { id: 2, name: 'นางสาววิริยา คำศรี', position: 'ครูชำนาญการ', isLeader: false },
-      { id: 3, name: 'นางสาวกันธิชา สุทธิอาจ', position: 'ครูชำนาญการ', isLeader: false },
-      { id: 4, name: 'นายจักรกริช แสนภูวา', position: 'ครูชำนาญการ', isLeader: false },
-      { id: 5, name: 'นายอัมรินทร์ ฤทธิรักษา', position: 'ครู', isLeader: false }
+      { id: 2, name: 'นางรัตนภรณ์ ภูมิเวียงศรี', position: 'ครูชำนาญการพิเศษ', isLeader: false },
+      { id: 3, name: 'นางสาวศุภักษร พรหมสิทธิ์', position: 'ครูชำนาญการ', isLeader: false },
+      { id: 4, name: 'นางสาวสุวิชชานี บรรทุมพร', position: 'ครูผู้ช่วย', isLeader: false },
+      { id: 5, name: 'นางสาวเบญจวรรณ ภูมิเวียงศรี', position: 'พนักงานราชการ', isLeader: false },
+      { id: 6, name: 'นางสาวแคทรียา นามวิจิตร', position: 'พนักงานราชการ', isLeader: false },
+      { id: 7, name: 'นางสาวนัฐธิดา คำอ้อ', position: 'ธุรการ', isLeader: false },
+      { id: 8, name: 'นางสังวาลย์ ทะกอง', position: 'พี่เลี้ยงเด็กพิการ', isLeader: false }
     ];
 
     let attendanceLogs = [];
     let googleSheetsUrl = 'https://script.google.com/macros/s/AKfycbyKVZUx4ZfhwqvYGalP1-kzbWFMiPfi0M9B2pvj-PLnzFTXwKM8ymyxqets979NfQDH/exec';
     let autoSyncSheets = true;
     let currentLogType = 'IN'; // 'IN' or 'OUT'
+    let currentSelectedStatus = 'ปกติ';
+
+    // Status Styling Configuration
+    const statusStyles = {
+      'ปกติ': { bg: 'bg-emerald-500', text: 'text-white', border: 'border-emerald-600', dot: 'bg-white', unselected: 'text-emerald-700 border-emerald-200 hover:bg-emerald-50' },
+      'สาย': { bg: 'bg-amber-500', text: 'text-white', border: 'border-amber-600', dot: 'bg-white', unselected: 'text-amber-700 border-amber-200 hover:bg-amber-50' },
+      'ปฏิบัติหน้าที่เวรยาม': { bg: 'bg-sky-500', text: 'text-white', border: 'border-sky-600', dot: 'bg-white', unselected: 'text-sky-700 border-sky-200 hover:bg-sky-50' },
+      'ไปราชการ/อบรม': { bg: 'bg-purple-600', text: 'text-white', border: 'border-purple-700', dot: 'bg-white', unselected: 'text-purple-700 border-purple-200 hover:bg-purple-50' },
+      'ลากิจ': { bg: 'bg-blue-600', text: 'text-white', border: 'border-blue-700', dot: 'bg-white', unselected: 'text-blue-700 border-blue-200 hover:bg-blue-50' },
+      'ลาป่วย': { bg: 'bg-rose-500', text: 'text-white', border: 'border-rose-600', dot: 'bg-white', unselected: 'text-rose-700 border-rose-200 hover:bg-rose-50' }
+    };
+
+    function selectStatusOption(status, isManual = true) {
+      currentSelectedStatus = status;
+      const statusInput = document.getElementById('statusSelect');
+      if (statusInput) statusInput.value = status;
+      if (isManual) userManuallyChangedStatus = true;
+
+      // Update button colors visually
+      Object.keys(statusStyles).forEach(key => {
+        const btn = document.getElementById(`opt-${key}`);
+        if (!btn) return;
+        const cfg = statusStyles[key];
+        const dot = btn.querySelector('span');
+
+        if (key === status) {
+          btn.className = `status-btn px-2 py-2 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1 shadow-sm ${cfg.bg} ${cfg.text} ${cfg.border}`;
+          if (dot) dot.className = 'w-2 h-2 rounded-full bg-white';
+        } else {
+          btn.className = `status-btn px-2 py-2 rounded-xl text-xs font-bold border transition flex items-center justify-center gap-1 bg-white ${cfg.unselected}`;
+          if (dot) {
+            let dotColor = 'bg-slate-400';
+            if (key === 'ปกติ') dotColor = 'bg-emerald-500';
+            if (key === 'สาย') dotColor = 'bg-amber-500';
+            if (key === 'ปฏิบัติหน้าที่เวรยาม') dotColor = 'bg-sky-500';
+            if (key === 'ไปราชการ/อบรม') dotColor = 'bg-purple-500';
+            if (key === 'ลากิจ') dotColor = 'bg-blue-500';
+            if (key === 'ลาป่วย') dotColor = 'bg-rose-500';
+            dot.className = `w-2 h-2 rounded-full ${dotColor}`;
+          }
+        }
+      });
+    }
 
     // Google Apps Script source code
     const appsScriptSource = `function doPost(e) {
@@ -714,21 +780,19 @@
     let userManuallyChangedStatus = false;
     function checkAutoLateStatus(now) {
       if (currentLogType !== 'IN' || userManuallyChangedStatus) return;
-      const statusSelect = document.getElementById('statusSelect');
       const notice = document.getElementById('autoLateNotice');
-      if (!statusSelect) return;
 
       const currentTotalMinutes = now.getHours() * 60 + now.getMinutes();
       const lateThresholdMinutes = 8 * 60 + 15; // 08:15 น.
 
       if (currentTotalMinutes > lateThresholdMinutes) {
-        if (statusSelect.value === 'ปกติ') {
-          statusSelect.value = 'สาย';
+        if (currentSelectedStatus === 'ปกติ') {
+          selectStatusOption('สาย', false);
           if (notice) notice.classList.remove('hidden');
         }
       } else {
-        if (statusSelect.value === 'สาย') {
-          statusSelect.value = 'ปกติ';
+        if (currentSelectedStatus === 'สาย') {
+          selectStatusOption('ปกติ', false);
           if (notice) notice.classList.add('hidden');
         }
       }
@@ -942,7 +1006,7 @@
         name: staff.name.trim(),
         position: staff.position,
         type: typeStr,
-        status: statusSelect ? statusSelect.value : 'ปกติ',
+        status: statusSelect ? statusSelect.value : currentSelectedStatus,
         date: dateStr,
         time: timeStr,
         notes: notesInput ? notesInput.value.trim() : '',
@@ -1085,9 +1149,12 @@
           : '<span class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800">ออกงาน</span>';
 
         let statusClass = 'bg-slate-100 text-slate-700';
-        if (log.status.includes('สาย')) statusClass = 'bg-amber-100 text-amber-800 font-bold';
-        if (log.status.includes('ปกติ')) statusClass = 'bg-emerald-50 text-emerald-700 font-medium';
-        if (log.status.includes('ลา')) statusClass = 'bg-rose-50 text-rose-700 font-medium';
+        if (log.status.includes('สาย')) statusClass = 'bg-amber-100 text-amber-800 font-bold border border-amber-300';
+        if (log.status.includes('ปกติ')) statusClass = 'bg-emerald-100 text-emerald-800 font-bold border border-emerald-300';
+        if (log.status.includes('เวร')) statusClass = 'bg-sky-100 text-sky-800 font-bold border border-sky-300';
+        if (log.status.includes('ราชการ')) statusClass = 'bg-purple-100 text-purple-800 font-bold border border-purple-300';
+        if (log.status.includes('ลากิจ')) statusClass = 'bg-blue-100 text-blue-800 font-bold border border-blue-300';
+        if (log.status.includes('ลาป่วย')) statusClass = 'bg-rose-100 text-rose-800 font-bold border border-rose-300';
 
         tr.innerHTML = `
           <td class="py-2.5 sm:py-3 px-3 sm:px-4 text-xs font-semibold text-slate-400 text-center">${index + 1}</td>
@@ -1256,7 +1323,7 @@
 
     function loadStorageData() {
       try {
-        const savedStaff = localStorage.getItem('nbh_staff_2026');
+        const savedStaff = localStorage.getItem('nbh_staff_2026_v2');
         if (savedStaff) {
           staffMembers = JSON.parse(savedStaff);
           const director = staffMembers.find(s => s.name.includes('กิจวัฒน์'));
@@ -1298,7 +1365,7 @@
 
     function saveStorageData() {
       try {
-        localStorage.setItem('nbh_staff_2026', JSON.stringify(staffMembers));
+        localStorage.setItem('nbh_staff_2026_v2', JSON.stringify(staffMembers));
         localStorage.setItem('nbh_attendance_2026', JSON.stringify(attendanceLogs));
         localStorage.setItem('nbh_sheets_url', googleSheetsUrl);
         localStorage.setItem('nbh_sheets_autosync', JSON.stringify(autoSyncSheets));
@@ -1317,14 +1384,7 @@
       renderAttendanceTable();
       updateDailyStatCards();
       renderAllReports();
-
-      // Listen for manual change on status dropdown
-      const statusEl = document.getElementById('statusSelect');
-      if (statusEl) {
-        statusEl.addEventListener('change', () => {
-          userManuallyChangedStatus = true;
-        });
-      }
+      selectStatusOption('ปกติ', false);
 
       if (window.lucide && typeof lucide.createIcons === 'function') {
         lucide.createIcons();
