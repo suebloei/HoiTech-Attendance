@@ -733,13 +733,14 @@
       const thaiMonthsShort = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'];
       const dateStr = `${now.getDate()} ${thaiMonthsShort[now.getMonth()]} ${now.getFullYear() + 543}`;
       const timeStr = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')} น.`;
+      const typeStr = currentLogType === 'IN' ? 'เข้าปฏิบัติราชการ' : 'ออกปฏิบัติราชการ';
 
       const record = {
         id: Date.now(),
         staffId: staff.id,
         name: staff.name,
         position: staff.position,
-        type: currentLogType === 'IN' ? 'เข้าปฏิบัติราชการ' : 'ออกปฏิบัติราชการ',
+        type: typeStr,
         status: statusSelect ? statusSelect.value : 'ปกติ',
         date: dateStr,
         time: timeStr,
@@ -747,12 +748,26 @@
         timestamp: new Date().toISOString()
       };
 
-      attendanceLogs.unshift(record);
+      // ตรวจสอบว่ามีการลงเวลาของบุคคลเดิม ประเภทเดียวกัน (เข้างาน/ออกงาน) ในวันเดียวกันหรือไม่
+      const existingIndex = attendanceLogs.findIndex(
+        item => item.staffId === staff.id && item.date === dateStr && item.type === typeStr
+      );
+
+      if (existingIndex !== -1) {
+        // กรณีพบรายการซ้ำ: แทนที่ด้วยเวลาและข้อมูลล่าสุด
+        const oldTime = attendanceLogs[existingIndex].time;
+        record.id = attendanceLogs[existingIndex].id; // รหัสเดิม
+        attendanceLogs[existingIndex] = record;
+        showToast(`🔄 อัปเดตเวลาล่าสุดของ ${staff.name} (${oldTime} ➔ ${timeStr})`);
+      } else {
+        // กรณีเป็นรายการใหม่: เพิ่มไว้บนสุด
+        attendanceLogs.unshift(record);
+        showToast(`✅ บันทึกเวลาของ ${staff.name} สำเร็จ (${timeStr})`);
+      }
+
       saveStorageData();
       renderAttendanceTable();
       updateDailyStatCards();
-
-      showToast(`✅ บันทึกเวลาของ ${staff.name} สำเร็จ`);
 
       if (autoSyncSheets && googleSheetsUrl) {
         sendRecordToGoogleSheets(record);
