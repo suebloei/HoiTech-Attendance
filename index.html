@@ -46,9 +46,11 @@
   </script>
 
   <style>
+    /* ธีมสีฟ้าสดใส (Sky & Cyan Academic Tone) */
     body {
       font-family: 'Sarabun', sans-serif;
-      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 40%, #f0f9ff 100%);
+      background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 35%, #7dd3fc 70%, #e0f2fe 100%);
+      background-attachment: fixed;
       min-height: 100vh;
     }
     .font-digital {
@@ -59,7 +61,7 @@
       width: 6px;
     }
     .custom-scroll::-webkit-scrollbar-thumb {
-      background: #7dd3fc;
+      background: #38bdf8;
       border-radius: 9999px;
     }
     @media print {
@@ -70,55 +72,55 @@
     .print-only { display: none; }
   </style>
 </head>
-<body class="text-slate-700 antialiased flex flex-col justify-between min-h-screen">
+<body class="text-slate-800 antialiased flex flex-col justify-between min-h-screen">
 
-  <!-- ส่วนหัวระบบ (Header ธีมสีฟ้าสดใส) -->
-  <header class="bg-white/95 backdrop-blur-md border-b border-sky-200 shadow-sm sticky top-0 z-40">
+  <!-- ส่วนหัวระบบ (Header โทนสีฟ้าสดใสประกายขาว) -->
+  <header class="bg-white/95 backdrop-blur-md border-b-2 border-sky-300 shadow-md sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 py-3 sm:py-3.5 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <!-- โลโก้โรงเรียนบ้านหนองหอย -->
-        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl p-1 bg-gradient-to-tr from-sky-400 via-sky-200 to-amber-200 shadow-md flex items-center justify-center shrink-0">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl p-1 bg-gradient-to-tr from-sky-500 via-sky-300 to-amber-300 shadow-md flex items-center justify-center shrink-0 border border-sky-300">
           <img src="HoiTech.jpeg" alt="ตราสัญลักษณ์โรงเรียนบ้านหนองหอย" class="w-full h-full object-contain rounded-xl" onerror="this.src='https://placehold.co/100x100/0284c7/ffffff?text=น.ห.'">
         </div>
         <div>
           <div class="flex items-center space-x-2">
-            <h1 class="text-lg sm:text-xl font-bold text-slate-800 tracking-tight leading-tight">โรงเรียนบ้านหนองหอย</h1>
-            <span class="hidden md:inline-block px-2 py-0.5 text-xs font-semibold bg-sky-100 text-sky-800 rounded-full border border-sky-200">สพป.ขอนแก่น เขต 5</span>
+            <h1 class="text-lg sm:text-xl font-bold text-sky-950 tracking-tight leading-tight">โรงเรียนบ้านหนองหอย</h1>
+            <span class="hidden md:inline-block px-2.5 py-0.5 text-xs font-bold bg-sky-100 text-sky-800 rounded-full border border-sky-300 shadow-xs">สพป.ขอนแก่น เขต 5</span>
           </div>
-          <p class="text-xs text-sky-700 font-medium">อำเภอหนองนาคำ จังหวัดขอนแก่น • "ความรู้ คู่คุณธรรม"</p>
+          <p class="text-xs text-sky-700 font-semibold">อำเภอหนองนาคำ จังหวัดขอนแก่น • "ความรู้ คู่คุณธรรม"</p>
         </div>
       </div>
 
       <!-- ปุ่มดึงข้อมูลและตั้งค่าชีต -->
       <div class="flex items-center space-x-2">
-        <button onclick="window.fetchDataFromGoogleSheets()" class="px-3 py-1.5 text-xs font-semibold bg-sky-50 text-sky-700 border border-sky-300 rounded-xl hover:bg-sky-100 transition flex items-center space-x-1 shadow-sm">
-          <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
+        <button onclick="window.fetchDataFromGoogleSheets()" class="px-3.5 py-1.5 text-xs font-bold bg-gradient-to-r from-sky-50 to-sky-100 text-sky-800 border border-sky-300 rounded-xl hover:bg-sky-200 transition flex items-center space-x-1.5 shadow-sm active:scale-95">
+          <i data-lucide="refresh-cw" class="w-3.5 h-3.5 text-sky-600"></i>
           <span class="hidden sm:inline">ดึงข้อมูล Sheets</span>
         </button>
-        <button onclick="window.openConfigModal()" class="px-3 py-1.5 text-xs font-semibold bg-slate-50 text-slate-600 border border-slate-200 rounded-xl hover:bg-slate-100 transition flex items-center space-x-1">
-          <i data-lucide="settings" class="w-3.5 h-3.5"></i>
+        <button onclick="window.openConfigModal()" class="px-3 py-1.5 text-xs font-semibold bg-white text-slate-700 border border-sky-200 rounded-xl hover:bg-sky-50 transition flex items-center space-x-1 shadow-sm">
+          <i data-lucide="settings" class="w-3.5 h-3.5 text-sky-600"></i>
           <span class="hidden sm:inline">ตั้งค่าชีต</span>
         </button>
       </div>
     </div>
 
-    <!-- แถบเมนูแท็บ (Navigation Tabs) -->
-    <div class="max-w-7xl mx-auto px-4 border-t border-sky-100">
-      <nav class="flex space-x-2 sm:space-x-4 overflow-x-auto custom-scroll py-2 text-sm font-medium">
-        <button onclick="window.switchTab('clockin')" id="tabBtn-clockin" class="px-3.5 py-1.5 rounded-xl whitespace-nowrap transition flex items-center space-x-2 bg-brand-500 text-white shadow-sm font-semibold">
+    <!-- แถบเมนูแท็บ (Navigation Tabs ธีมสีฟ้าสด) -->
+    <div class="max-w-7xl mx-auto px-4 border-t border-sky-100 bg-sky-50/50">
+      <nav class="flex space-x-2 sm:space-x-3 overflow-x-auto custom-scroll py-2 text-sm font-medium">
+        <button onclick="window.switchTab('clockin')" id="tabBtn-clockin" class="px-4 py-2 rounded-xl whitespace-nowrap transition flex items-center space-x-2 bg-gradient-to-r from-sky-500 to-brand-600 text-white shadow-md font-bold">
           <i data-lucide="clock" class="w-4 h-4"></i>
           <span>บันทึกเวลา</span>
         </button>
-        <button onclick="window.switchTab('roster')" id="tabBtn-roster" class="px-3.5 py-1.5 rounded-xl whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:text-brand-600 hover:bg-sky-50">
-          <i data-lucide="users" class="w-4 h-4"></i>
+        <button onclick="window.switchTab('roster')" id="tabBtn-roster" class="px-4 py-2 rounded-xl whitespace-nowrap transition flex items-center space-x-2 text-sky-900 hover:text-brand-600 hover:bg-sky-100/80 font-semibold">
+          <i data-lucide="users" class="w-4 h-4 text-sky-600"></i>
           <span>ทำเนียบบุคลากร (10)</span>
         </button>
-        <button onclick="window.switchTab('history')" id="tabBtn-history" class="px-3.5 py-1.5 rounded-xl whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:text-brand-600 hover:bg-sky-50">
-          <i data-lucide="list" class="w-4 h-4"></i>
+        <button onclick="window.switchTab('history')" id="tabBtn-history" class="px-4 py-2 rounded-xl whitespace-nowrap transition flex items-center space-x-2 text-sky-900 hover:text-brand-600 hover:bg-sky-100/80 font-semibold">
+          <i data-lucide="list" class="w-4 h-4 text-sky-600"></i>
           <span>ประวัติการลงเวลา</span>
         </button>
-        <button onclick="window.switchTab('reports')" id="tabBtn-reports" class="px-3.5 py-1.5 rounded-xl whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:text-brand-600 hover:bg-sky-50">
-          <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+        <button onclick="window.switchTab('reports')" id="tabBtn-reports" class="px-4 py-2 rounded-xl whitespace-nowrap transition flex items-center space-x-2 text-sky-900 hover:text-brand-600 hover:bg-sky-100/80 font-semibold">
+          <i data-lucide="bar-chart-3" class="w-4 h-4 text-sky-600"></i>
           <span>รายงานสถิติ</span>
         </button>
       </nav>
@@ -133,43 +135,44 @@
     <!-- ========================================== -->
     <section id="tab-clockin" class="space-y-6">
       
-      <!-- การ์ดด้านบน: นาฬิกา, ผู้อำนวยการ, น้องหอยเทค -->
+      <!-- การ์ดด้านบน 3 ช่อง: นาฬิกาฟ้าสดใส, ผู้อำนวยการ, น้องหอยเทค -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         
-        <!-- นาฬิกาดิจิทัล -->
-        <div class="bg-gradient-to-br from-brand-600 via-sky-600 to-sky-700 rounded-2xl p-5 text-white shadow-lg relative overflow-hidden flex flex-col justify-between">
+        <!-- นาฬิกาดิจิทัล โทนฟ้าสดไล่เฉด -->
+        <div class="bg-gradient-to-br from-sky-600 via-sky-500 to-brand-700 rounded-3xl p-5 text-white shadow-xl relative overflow-hidden flex flex-col justify-between border border-sky-400">
+          <div class="absolute -right-6 -bottom-6 w-32 h-32 bg-white/15 rounded-full blur-xl pointer-events-none"></div>
           <div>
             <div class="flex items-center justify-between text-sky-100 text-xs font-medium">
               <span class="flex items-center space-x-1.5">
-                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>เวลาประเทศไทย (ICT)</span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span class="font-semibold">เวลาประเทศไทย (ICT)</span>
               </span>
-              <span id="currentDayOfWeek" class="bg-white/20 px-2 py-0.5 rounded-md font-semibold text-white">...</span>
+              <span id="currentDayOfWeek" class="bg-white/25 px-2.5 py-0.5 rounded-md font-bold text-white shadow-xs">...</span>
             </div>
-            <div class="mt-2 text-4xl sm:text-5xl font-bold font-digital tracking-tight text-white drop-shadow-sm" id="digitalClockTime">
+            <div class="mt-2 text-4xl sm:text-5xl font-bold font-digital tracking-tight text-white drop-shadow-md" id="digitalClockTime">
               --:--:--
             </div>
-            <div class="text-xs sm:text-sm text-sky-100 mt-1 font-medium" id="digitalClockDate">
+            <div class="text-xs sm:text-sm text-sky-100 mt-1 font-medium tracking-wide" id="digitalClockDate">
               กำลังเชื่อมต่อสัญญาณเวลา...
             </div>
           </div>
-          <div class="mt-4 pt-3 border-t border-sky-400/40 flex items-center justify-between text-xs text-sky-100">
-            <span>เกณฑ์เวลามาตรฐานเข้างาน:</span>
-            <span class="font-bold text-amber-300 bg-amber-400/20 px-2 py-0.5 rounded">08:15 น. (สาย)</span>
+          <div class="mt-4 pt-3 border-t border-sky-300/40 flex items-center justify-between text-xs text-sky-100">
+            <span class="font-medium">เกณฑ์เวลามาตรฐานเข้างาน:</span>
+            <span class="font-bold text-amber-300 bg-amber-500/30 px-2 py-0.5 rounded-lg border border-amber-300/40">08:15 น. (สาย)</span>
           </div>
         </div>
 
         <!-- การ์ดท่าน ผอ. นายกิจวัฒน์ แสนศรีระ -->
-        <div class="bg-white rounded-2xl p-4 border border-sky-200 shadow-sm flex items-center space-x-4 relative">
-          <div class="relative w-20 h-20 shrink-0 rounded-2xl overflow-hidden border-2 border-brand-400 shadow-md">
+        <div class="bg-white/95 rounded-3xl p-4 border-2 border-sky-200 shadow-md flex items-center space-x-4 relative">
+          <div class="relative w-20 h-20 shrink-0 rounded-2xl overflow-hidden border-2 border-sky-400 shadow-md">
             <img src="kitchawat.jpg" alt="นายกิจวัฒน์ แสนศรีระ" class="w-full h-full object-cover object-top" onerror="this.src='https://placehold.co/200x200/0284c7/ffffff?text=ผอ.'">
-            <span class="absolute bottom-0 inset-x-0 bg-brand-600/90 text-white text-[10px] text-center font-bold py-0.5">ผอ.รร.</span>
+            <span class="absolute bottom-0 inset-x-0 bg-sky-600/90 text-white text-[10px] text-center font-bold py-0.5">ผอ.รร.</span>
           </div>
           <div class="flex-grow min-w-0">
-            <span class="text-[11px] font-semibold text-brand-600 bg-brand-50 px-2 py-0.5 rounded-md border border-brand-200">ผู้อำนวยการโรงเรียน</span>
+            <span class="text-[11px] font-bold text-sky-700 bg-sky-50 px-2 py-0.5 rounded-md border border-sky-200">ผู้อำนวยการโรงเรียน</span>
             <h2 class="text-base font-bold text-slate-800 truncate mt-1">นายกิจวัฒน์ แสนศรีระ</h2>
-            <p class="text-xs text-slate-500">โรงเรียนบ้านหนองหอย</p>
-            <button onclick="window.quickSelectStaff('staff_1')" class="mt-2 text-xs font-semibold text-brand-600 bg-sky-50 hover:bg-sky-100 px-3 py-1 rounded-lg border border-sky-200 transition flex items-center space-x-1">
+            <p class="text-xs text-sky-600 font-medium">โรงเรียนบ้านหนองหอย</p>
+            <button onclick="window.quickSelectStaff('staff_1')" class="mt-2 text-xs font-bold text-white bg-gradient-to-r from-sky-500 to-brand-600 hover:from-sky-600 hover:to-brand-700 px-3.5 py-1.5 rounded-xl shadow-sm transition flex items-center space-x-1.5 active:scale-95">
               <i data-lucide="check-circle" class="w-3.5 h-3.5"></i>
               <span>เลือกลงเวลาท่าน ผอ.</span>
             </button>
@@ -177,8 +180,8 @@
         </div>
 
         <!-- มาสคอต "น้องหอยเทค" -->
-        <div class="bg-gradient-to-br from-amber-50 to-sky-50 rounded-2xl p-4 border border-amber-200 shadow-sm flex items-center space-x-3.5 cursor-pointer hover:shadow-md transition" onclick="window.triggerMascotQuote()">
-          <div class="w-16 h-16 shrink-0 bg-white rounded-2xl p-1.5 shadow-md border border-amber-200 flex items-center justify-center relative">
+        <div class="bg-gradient-to-br from-sky-50 via-white to-amber-50/70 rounded-3xl p-4 border-2 border-sky-200 shadow-md flex items-center space-x-3.5 cursor-pointer hover:shadow-lg transition" onclick="window.triggerMascotQuote()">
+          <div class="w-16 h-16 shrink-0 bg-white rounded-2xl p-1.5 shadow-md border-2 border-sky-200 flex items-center justify-center relative">
             <svg viewBox="0 0 100 100" class="w-full h-full">
               <path d="M 30 75 Q 15 75 12 65 Q 10 50 30 45 Q 35 25 60 25 Q 85 25 85 55 Q 85 75 60 75 Z" fill="#0284c7" />
               <path d="M 60 25 Q 75 25 75 45 Q 75 65 55 65 Q 40 65 40 50 Q 40 38 52 38" fill="none" stroke="#fbbf24" stroke-width="4" stroke-linecap="round" />
@@ -193,11 +196,11 @@
             <span class="absolute -top-1.5 -right-1.5 bg-gold-500 text-white text-[9px] font-bold px-1.5 py-0.2 rounded-full shadow">หอยเทค</span>
           </div>
           <div class="min-w-0">
-            <div class="flex items-center space-x-1 text-xs font-bold text-amber-800">
+            <div class="flex items-center space-x-1 text-xs font-bold text-sky-900">
               <span>น้องหอยเทค ผู้ช่วยดิจิทัล</span>
-              <span class="text-[10px] text-amber-600 font-normal">(แตะเพื่อคุย)</span>
+              <span class="text-[10px] text-sky-600 font-semibold">(แตะเพื่อคุย)</span>
             </div>
-            <p id="mascotSpeech" class="text-xs text-slate-700 mt-1 font-medium bg-white/90 p-2 rounded-xl border border-amber-200/50 leading-relaxed">
+            <p id="mascotSpeech" class="text-xs text-slate-700 mt-1 font-medium bg-white/90 p-2.5 rounded-xl border border-sky-100 shadow-xs leading-relaxed">
               "สวัสดีครับคุณครู! ยินดีต้อนรับสู่ระบบลงเวลาปฏิบัติราชการ โรงเรียนบ้านหนองหอยครับ"
             </p>
           </div>
@@ -205,17 +208,17 @@
 
       </div>
 
-      <!-- ฟอร์มลงเวลาปฏิบัติราชการ -->
-      <div class="bg-white rounded-3xl p-5 sm:p-7 border border-sky-200 shadow-md">
+      <!-- ฟอร์มลงเวลาปฏิบัติราชการ สไตล์สีฟ้าพรีเมียม -->
+      <div class="bg-white/95 rounded-3xl p-5 sm:p-7 border-2 border-sky-200 shadow-lg">
         
         <!-- สลับ เข้าปฏิบัติราชการ / ออกปฏิบัติราชการ -->
         <div class="flex justify-center mb-6">
-          <div class="bg-sky-50 p-1.5 rounded-2xl border border-sky-200 flex max-w-md w-full">
-            <button type="button" onclick="window.setLogType('เข้าปฏิบัติราชการ')" id="btnTypeIn" class="flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 bg-brand-600 text-white shadow-md">
+          <div class="bg-sky-100/70 p-1.5 rounded-2xl border border-sky-300 flex max-w-md w-full shadow-inner">
+            <button type="button" onclick="window.setLogType('เข้าปฏิบัติราชการ')" id="btnTypeIn" class="flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 bg-gradient-to-r from-sky-500 to-brand-600 text-white shadow-md">
               <i data-lucide="log-in" class="w-4 h-4"></i>
               <span>เข้าปฏิบัติราชการ</span>
             </button>
-            <button type="button" onclick="window.setLogType('ออกปฏิบัติราชการ')" id="btnTypeOut" class="flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 text-slate-600 hover:text-brand-600">
+            <button type="button" onclick="window.setLogType('ออกปฏิบัติราชการ')" id="btnTypeOut" class="flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 text-sky-800 hover:text-brand-600 font-semibold">
               <i data-lucide="log-out" class="w-4 h-4"></i>
               <span>ออกปฏิบัติราชการ</span>
             </button>
@@ -227,13 +230,13 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             
-            <!-- เลือกบุคลากร (ครบทั้ง 10 ท่าน) -->
+            <!-- เลือกบุคลากร (ครบ 10 ท่าน) -->
             <div>
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label class="block text-xs font-bold text-sky-950 uppercase tracking-wider mb-1.5">
                 เลือกชื่อ - นามสกุล บุคลากร <span class="text-rose-500">*</span>
               </label>
               <div class="relative">
-                <select id="staffSelect" required onchange="window.onStaffChanged()" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-3 text-sm font-medium focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none transition appearance-none">
+                <select id="staffSelect" required onchange="window.onStaffChanged()" class="w-full bg-sky-50/50 border-2 border-sky-200 rounded-xl px-3.5 py-3 text-sm font-semibold text-slate-800 focus:ring-2 focus:ring-sky-400 focus:bg-white outline-none transition appearance-none shadow-xs">
                   <option value="">-- กรุณาเลือกรายชื่อ --</option>
                   <option value="staff_1">นายกิจวัฒน์ แสนศรีระ (ผู้อำนวยการโรงเรียน)</option>
                   <option value="staff_2">นางรัตนภรณ์ ภูมิเวียงศรี (ครูชำนาญการพิเศษ)</option>
@@ -246,55 +249,55 @@
                   <option value="staff_9">นางสังวาลย์ ทะกอง (พี่เลี้ยงเด็กพิการ)</option>
                   <option value="staff_10">นายพิเชฏฐ์พงษ์ ประเสริฐผล (นักการภารโรง)</option>
                 </select>
-                <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 absolute right-3.5 top-3.5 pointer-events-none"></i>
+                <i data-lucide="chevron-down" class="w-4 h-4 text-sky-500 absolute right-3.5 top-3.5 pointer-events-none"></i>
               </div>
-              <p id="staffPositionText" class="text-xs text-brand-600 font-medium mt-1.5 h-4"></p>
+              <p id="staffPositionText" class="text-xs text-sky-700 font-semibold mt-1.5 h-4"></p>
             </div>
 
-            <!-- เลือกสถานะ (ปุ่มสีสัน 6 ปุ่ม พร้อมไฟสถานะ & Auto-Late) -->
+            <!-- เลือกสถานะ (ปุ่มสีสัน 6 ปุ่ม ชัดเจน & Auto-Late) -->
             <div>
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+              <label class="block text-xs font-bold text-sky-950 uppercase tracking-wider mb-1.5 flex items-center justify-between">
                 <span>สถานะการมาปฏิบัติงาน <span class="text-rose-500">*</span></span>
-                <span id="autoLateNotice" class="text-[11px] text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md border border-amber-200 font-bold hidden animate-pulse">
+                <span id="autoLateNotice" class="text-[11px] text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-lg border border-amber-300 font-bold hidden animate-pulse">
                   ⏰ เกิน 08:15 น. ปรับสถานะ "สาย" อัตโนมัติ
                 </span>
               </label>
 
-              <!-- ปุ่มเลือกสถานะแยกสีชัดเจน -->
+              <!-- ปุ่มเลือกสถานะ 6 สีเด่นชัด -->
               <div class="grid grid-cols-3 sm:grid-cols-6 gap-2" id="statusPillsGroup">
                 <!-- ปกติ -->
                 <button type="button" onclick="window.selectStatus('ปกติ')" id="pill-ปกติ" 
-                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100 shadow-sm">
+                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-emerald-50 text-emerald-800 border-emerald-300 hover:bg-emerald-100 shadow-sm active:scale-95">
                   <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
                   <span>ปกติ</span>
                 </button>
                 <!-- สาย -->
                 <button type="button" onclick="window.selectStatus('สาย')" id="pill-สาย" 
-                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100 shadow-sm">
+                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100 shadow-sm active:scale-95">
                   <span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>
                   <span>สาย</span>
                 </button>
                 <!-- เวรยาม -->
                 <button type="button" onclick="window.selectStatus('เวรยาม')" id="pill-เวรยาม" 
-                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-sky-50 text-sky-800 border-sky-300 hover:bg-sky-100 shadow-sm">
+                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-sky-50 text-sky-800 border-sky-300 hover:bg-sky-100 shadow-sm active:scale-95">
                   <span class="w-2.5 h-2.5 rounded-full bg-sky-500"></span>
                   <span>เวรยาม</span>
                 </button>
                 <!-- ราชการ -->
                 <button type="button" onclick="window.selectStatus('ราชการ')" id="pill-ราชการ" 
-                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-purple-50 text-purple-800 border-purple-300 hover:bg-purple-100 shadow-sm">
+                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-purple-50 text-purple-800 border-purple-300 hover:bg-purple-100 shadow-sm active:scale-95">
                   <span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>
                   <span>ราชการ</span>
                 </button>
                 <!-- ลากิจ -->
                 <button type="button" onclick="window.selectStatus('ลากิจ')" id="pill-ลากิจ" 
-                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-blue-50 text-blue-800 border-blue-300 hover:bg-blue-100 shadow-sm">
+                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-blue-50 text-blue-800 border-blue-300 hover:bg-blue-100 shadow-sm active:scale-95">
                   <span class="w-2.5 h-2.5 rounded-full bg-blue-500"></span>
                   <span>ลากิจ</span>
                 </button>
                 <!-- ลาป่วย -->
                 <button type="button" onclick="window.selectStatus('ลาป่วย')" id="pill-ลาป่วย" 
-                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-rose-50 text-rose-800 border-rose-300 hover:bg-rose-100 shadow-sm">
+                  class="py-2.5 px-2 rounded-xl text-xs font-bold border-2 transition flex flex-col items-center justify-center space-y-1 bg-rose-50 text-rose-800 border-rose-300 hover:bg-rose-100 shadow-sm active:scale-95">
                   <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
                   <span>ลาป่วย</span>
                 </button>
@@ -307,37 +310,37 @@
           <!-- แถวสอง: พิกัด GPS & หมายเหตุ -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5 pt-2">
             <div>
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label class="block text-xs font-bold text-sky-950 uppercase tracking-wider mb-1.5">
                 พิกัดสถานที่ลงเวลา (GPS)
               </label>
               <div class="flex space-x-2">
                 <div class="relative flex-grow">
-                  <input type="text" id="gpsInput" readonly placeholder="กำลังตรวจจับตำแหน่ง..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-600 outline-none">
-                  <i data-lucide="map-pin" class="w-4 h-4 text-brand-500 absolute right-3 top-2.5"></i>
+                  <input type="text" id="gpsInput" readonly placeholder="กำลังตรวจจับตำแหน่ง..." class="w-full bg-sky-50/50 border border-sky-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-700 outline-none">
+                  <i data-lucide="map-pin" class="w-4 h-4 text-sky-500 absolute right-3 top-2.5"></i>
                 </div>
-                <button type="button" onclick="window.getCurrentLocation()" class="px-3 py-2 bg-sky-100 text-sky-700 hover:bg-sky-200 rounded-xl text-xs font-bold transition flex items-center space-x-1 shrink-0">
+                <button type="button" onclick="window.getCurrentLocation()" class="px-3.5 py-2 bg-sky-100 text-sky-800 hover:bg-sky-200 border border-sky-300 rounded-xl text-xs font-bold transition flex items-center space-x-1 shrink-0 active:scale-95">
                   <i data-lucide="locate-fixed" class="w-3.5 h-3.5"></i>
                   <span>หาพิกัด</span>
                 </button>
               </div>
-              <span class="text-[11px] text-slate-400 mt-1 block">ศูนย์กลาง: โรงเรียนบ้านหนองหอย อ.หนองนาคำ (16.8291° N, 102.3912° E)</span>
+              <span class="text-[11px] text-sky-700 font-medium mt-1 block">ศูนย์กลาง: โรงเรียนบ้านหนองหอย อ.หนองนาคำ (16.8291° N, 102.3912° E)</span>
             </div>
 
             <div>
-              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">
+              <label class="block text-xs font-bold text-sky-950 uppercase tracking-wider mb-1.5">
                 หมายเหตุเพิ่มเติม (ถ้ามี)
               </label>
-              <input type="text" id="noteInput" placeholder="เช่น เดินทางไปราชการ สพป.ขอนแก่น เขต 5" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-700 focus:ring-2 focus:ring-brand-500 focus:bg-white outline-none transition">
+              <input type="text" id="noteInput" placeholder="เช่น เดินทางไปราชการ สพป.ขอนแก่น เขต 5" class="w-full bg-sky-50/50 border border-sky-200 rounded-xl px-3.5 py-2.5 text-xs font-medium text-slate-700 focus:ring-2 focus:ring-sky-400 focus:bg-white outline-none transition">
             </div>
           </div>
 
-          <!-- ปุ่มกดยืนยันบันทึกเวลา -->
+          <!-- ปุ่มกดยืนยันบันทึกเวลา สีฟ้าสดใส -->
           <div class="pt-3">
-            <button type="submit" id="btnSubmitClock" class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-brand-600 via-sky-600 to-brand-700 text-white font-bold text-base shadow-lg hover:shadow-xl hover:from-brand-700 hover:to-sky-700 transition transform active:scale-[0.99] flex items-center justify-center space-x-2">
+            <button type="submit" id="btnSubmitClock" class="w-full py-4 px-4 rounded-2xl bg-gradient-to-r from-sky-500 via-sky-600 to-brand-600 text-white font-bold text-base shadow-lg hover:shadow-xl hover:from-sky-600 hover:to-brand-700 transition transform active:scale-[0.99] flex items-center justify-center space-x-2 border border-sky-400">
               <i data-lucide="check-circle-2" class="w-5 h-5"></i>
               <span id="btnSubmitText">ยืนยันบันทึกเวลาปฏิบัติราชการ</span>
             </button>
-            <p class="text-[11px] text-center text-slate-400 mt-2">
+            <p class="text-[11px] text-center text-sky-700 font-medium mt-2">
               * กรณีคนเดียวกันลงเวลาซ้ำในประเภทเดิม ระบบจะอัปเดตแทนที่ด้วยเวลาล่าสุดโดยอัตโนมัติ
             </p>
           </div>
@@ -346,14 +349,14 @@
 
       </div>
 
-      <!-- รายชื่อแตะเลือกลงเวลาด่วน (Quick Select) -->
-      <div class="bg-white rounded-2xl p-4 border border-sky-200 shadow-sm">
+      <!-- รายชื่อแตะเลือกลงเวลาด่วน (Quick Select ธีมฟ้า) -->
+      <div class="bg-white/95 rounded-3xl p-4 border-2 border-sky-200 shadow-md">
         <div class="flex items-center justify-between mb-3">
-          <span class="text-xs font-bold text-slate-600 uppercase tracking-wider flex items-center space-x-1.5">
+          <span class="text-xs font-bold text-sky-900 uppercase tracking-wider flex items-center space-x-1.5">
             <i data-lucide="zap" class="w-3.5 h-3.5 text-amber-500"></i>
             <span>แตะรายชื่อเพื่อเลือกลงเวลาอย่างรวดเร็ว (Quick Select)</span>
           </span>
-          <span class="text-xs text-sky-700 font-semibold">บุคลากรทั้งหมด 10 ท่าน</span>
+          <span class="text-xs text-sky-800 font-bold bg-sky-100 px-2 py-0.5 rounded-md border border-sky-200">10 ท่าน</span>
         </div>
         <div class="flex flex-wrap gap-2" id="quickStaffBadges">
           <!-- Populated by JS -->
@@ -366,13 +369,13 @@
     <!-- แท็บ 2: ทำเนียบบุคลากรและครู (Roster) -->
     <!-- ========================================== -->
     <section id="tab-roster" class="hidden space-y-6">
-      <div class="bg-white rounded-3xl p-6 border border-sky-200 shadow-sm">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
+      <div class="bg-white/95 rounded-3xl p-6 border-2 border-sky-200 shadow-md">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-sky-100 gap-3">
           <div>
             <h2 class="text-lg font-bold text-slate-800">ทำเนียบข้าราชการครูและบุคลากรทางการศึกษา</h2>
-            <p class="text-xs text-slate-500 mt-0.5">โรงเรียนบ้านหนองหอย สพป.ขอนแก่น เขต 5</p>
+            <p class="text-xs text-sky-700 font-medium mt-0.5">โรงเรียนบ้านหนองหอย สพป.ขอนแก่น เขต 5</p>
           </div>
-          <span class="self-start sm:self-auto px-3 py-1 bg-sky-100 text-sky-800 rounded-full text-xs font-bold">
+          <span class="self-start sm:self-auto px-3 py-1 bg-sky-100 text-sky-800 rounded-full text-xs font-bold border border-sky-300">
             รวมทั้งสิ้น 10 คน
           </span>
         </div>
@@ -387,48 +390,48 @@
     <!-- แท็บ 3: ประวัติการลงเวลา (History) -->
     <!-- ========================================== -->
     <section id="tab-history" class="hidden space-y-5">
-      <div class="bg-white rounded-3xl p-6 border border-sky-200 shadow-sm">
+      <div class="bg-white/95 rounded-3xl p-6 border-2 border-sky-200 shadow-md">
         
-        <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-4 border-b border-slate-100 gap-4">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-4 border-b border-sky-100 gap-4">
           <div>
             <h2 class="text-lg font-bold text-slate-800">ประวัติการลงเวลาปฏิบัติราชการ</h2>
-            <p class="text-xs text-slate-500 mt-0.5">ตรวจสอบ แก้ไข และซิงก์ข้อมูลกับ Google Sheets</p>
+            <p class="text-xs text-sky-700 font-medium mt-0.5">ตรวจสอบ แก้ไข และซิงก์ข้อมูลกับ Google Sheets</p>
           </div>
           <div class="flex flex-wrap items-center gap-2">
-            <button onclick="window.fetchDataFromGoogleSheets()" class="px-3.5 py-2 bg-sky-50 text-sky-700 hover:bg-sky-100 border border-sky-300 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-sm">
-              <i data-lucide="cloud-download" class="w-4 h-4"></i>
+            <button onclick="window.fetchDataFromGoogleSheets()" class="px-3.5 py-2 bg-sky-100 text-sky-800 hover:bg-sky-200 border border-sky-300 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shadow-xs">
+              <i data-lucide="cloud-download" class="w-4 h-4 text-sky-600"></i>
               <span>ดึงข้อมูลล่าสุดจาก Sheets</span>
             </button>
-            <button onclick="window.exportToCSV()" class="px-3.5 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 border border-emerald-300 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-sm">
-              <i data-lucide="file-spreadsheet" class="w-4 h-4"></i>
+            <button onclick="window.exportToCSV()" class="px-3.5 py-2 bg-emerald-50 text-emerald-800 hover:bg-emerald-100 border border-emerald-300 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shadow-xs">
+              <i data-lucide="file-spreadsheet" class="w-4 h-4 text-emerald-600"></i>
               <span>ส่งออก CSV/Excel</span>
             </button>
           </div>
         </div>
 
-        <!-- ตัวกรองค้นหาขั้นสูง -->
-        <div class="bg-sky-50/50 p-4 rounded-2xl border border-sky-100 my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+        <!-- ตัวกรองค้นหาขั้นสูง ธีมฟ้า -->
+        <div class="bg-sky-50/70 p-4 rounded-2xl border border-sky-200 my-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs">
           <div>
-            <label class="block font-semibold text-slate-600 mb-1">ค้นหา (ชื่อ / หมายเหตุ)</label>
-            <input type="text" id="filterKeyword" oninput="window.applyHistoryFilters()" placeholder="พิมพ์คำค้นหา..." class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 outline-none focus:ring-1 focus:ring-brand-500">
+            <label class="block font-bold text-sky-950 mb-1">ค้นหา (ชื่อ / หมายเหตุ)</label>
+            <input type="text" id="filterKeyword" oninput="window.applyHistoryFilters()" placeholder="พิมพ์คำค้นหา..." class="w-full bg-white border border-sky-200 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-sky-400">
           </div>
           <div>
-            <label class="block font-semibold text-slate-600 mb-1">เลือกเฉพาะบุคคล</label>
-            <select id="filterStaff" onchange="window.applyHistoryFilters()" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 outline-none focus:ring-1 focus:ring-brand-500">
+            <label class="block font-bold text-sky-950 mb-1">เลือกเฉพาะบุคคล</label>
+            <select id="filterStaff" onchange="window.applyHistoryFilters()" class="w-full bg-white border border-sky-200 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-sky-400">
               <option value="">ทั้งหมด (ทุกคน)</option>
             </select>
           </div>
           <div>
-            <label class="block font-semibold text-slate-600 mb-1">ประเภท</label>
-            <select id="filterType" onchange="window.applyHistoryFilters()" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 outline-none focus:ring-1 focus:ring-brand-500">
+            <label class="block font-bold text-sky-950 mb-1">ประเภท</label>
+            <select id="filterType" onchange="window.applyHistoryFilters()" class="w-full bg-white border border-sky-200 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-sky-400">
               <option value="">ทั้งหมด</option>
               <option value="เข้าปฏิบัติราชการ">เข้าปฏิบัติราชการ</option>
               <option value="ออกปฏิบัติราชการ">ออกปฏิบัติราชการ</option>
             </select>
           </div>
           <div>
-            <label class="block font-semibold text-slate-600 mb-1">สถานะ</label>
-            <select id="filterStatus" onchange="window.applyHistoryFilters()" class="w-full bg-white border border-slate-200 rounded-xl px-3 py-2 outline-none focus:ring-1 focus:ring-brand-500">
+            <label class="block font-bold text-sky-950 mb-1">สถานะ</label>
+            <select id="filterStatus" onchange="window.applyHistoryFilters()" class="w-full bg-white border border-sky-200 rounded-xl px-3 py-2 outline-none focus:ring-2 focus:ring-sky-400">
               <option value="">ทั้งหมด</option>
               <option value="ปกติ">ปกติ</option>
               <option value="สาย">สาย</option>
@@ -441,9 +444,9 @@
         </div>
 
         <!-- ตารางประวัติ -->
-        <div class="overflow-x-auto custom-scroll rounded-2xl border border-sky-100">
+        <div class="overflow-x-auto custom-scroll rounded-2xl border border-sky-200">
           <table class="w-full text-left text-xs whitespace-nowrap">
-            <thead class="bg-sky-50 text-slate-600 font-bold border-b border-sky-200">
+            <thead class="bg-sky-100/75 text-sky-950 font-bold border-b border-sky-200">
               <tr>
                 <th class="py-3 px-3.5 text-center w-12">#</th>
                 <th class="py-3 px-3.5">ชื่อ - นามสกุล / ตำแหน่ง</th>
@@ -456,7 +459,7 @@
                 <th class="py-3 px-3.5 text-center">จัดการ</th>
               </tr>
             </thead>
-            <tbody id="historyTableBody" class="divide-y divide-slate-100">
+            <tbody id="historyTableBody" class="divide-y divide-sky-100">
               <!-- Populated by JS -->
             </tbody>
           </table>
@@ -470,56 +473,56 @@
     <!-- ========================================== -->
     <section id="tab-reports" class="hidden space-y-6">
       
-      <!-- การ์ดสรุปยอดประจำวัน -->
+      <!-- การ์ดสรุปยอดประจำวัน โทนสดใส -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
-        <div class="bg-white rounded-2xl p-4 border border-sky-200 shadow-sm flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+        <div class="bg-white/95 rounded-2xl p-4 border border-sky-200 shadow-sm flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
             <i data-lucide="user-check" class="w-5 h-5"></i>
           </div>
           <div>
-            <div class="text-xs text-slate-400 font-medium">มาปกติวันนี้</div>
+            <div class="text-xs text-slate-500 font-semibold">มาปกติวันนี้</div>
             <div class="text-xl font-bold text-emerald-600" id="statCardNormal">0 คน</div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl p-4 border border-sky-200 shadow-sm flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+        <div class="bg-white/95 rounded-2xl p-4 border border-sky-200 shadow-sm flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
             <i data-lucide="clock-alert" class="w-5 h-5"></i>
           </div>
           <div>
-            <div class="text-xs text-slate-400 font-medium">มาสายวันนี้</div>
+            <div class="text-xs text-slate-500 font-semibold">มาสายวันนี้</div>
             <div class="text-xl font-bold text-amber-600" id="statCardLate">0 คน</div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl p-4 border border-sky-200 shadow-sm flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+        <div class="bg-white/95 rounded-2xl p-4 border border-sky-200 shadow-sm flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
             <i data-lucide="briefcase" class="w-5 h-5"></i>
           </div>
           <div>
-            <div class="text-xs text-slate-400 font-medium">ราชการ/เวรยาม</div>
-            <div class="text-xl font-bold text-indigo-600" id="statCardDuty">0 คน</div>
+            <div class="text-xs text-slate-500 font-semibold">ราชการ/เวรยาม</div>
+            <div class="text-xl font-bold text-sky-700" id="statCardDuty">0 คน</div>
           </div>
         </div>
-        <div class="bg-white rounded-2xl p-4 border border-sky-200 shadow-sm flex items-center space-x-3">
-          <div class="w-10 h-10 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center shrink-0">
+        <div class="bg-white/95 rounded-2xl p-4 border border-sky-200 shadow-sm flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-rose-100 text-rose-700 flex items-center justify-center shrink-0">
             <i data-lucide="file-minus" class="w-5 h-5"></i>
           </div>
           <div>
-            <div class="text-xs text-slate-400 font-medium">การลา (ป่วย/กิจ)</div>
+            <div class="text-xs text-slate-500 font-semibold">การลา (ป่วย/กิจ)</div>
             <div class="text-xl font-bold text-rose-600" id="statCardLeave">0 คน</div>
           </div>
         </div>
       </div>
 
       <!-- ตารางสรุปสถิติการปฏิบัติราชการรายบุคคล -->
-      <div class="bg-white rounded-3xl p-6 border border-sky-200 shadow-sm">
+      <div class="bg-white/95 rounded-3xl p-6 border-2 border-sky-200 shadow-md">
         
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-sky-100 gap-4">
           <div>
             <h2 class="text-lg font-bold text-slate-800">สรุปสถิติการปฏิบัติราชการรายบุคคล</h2>
-            <p class="text-xs text-slate-500 mt-0.5">คำนวณจำนวนครั้ง และร้อยละ (% การมาปฏิบัติงาน) ของบุคลากรแต่ละท่าน</p>
+            <p class="text-xs text-sky-700 font-medium mt-0.5">คำนวณจำนวนครั้ง และร้อยละ (% การมาปฏิบัติงาน) ของบุคลากรแต่ละท่าน</p>
           </div>
           <div class="flex items-center space-x-2">
-            <button onclick="window.print()" class="px-3.5 py-2 bg-brand-50 text-brand-700 hover:bg-brand-100 border border-brand-200 rounded-xl text-xs font-semibold transition flex items-center space-x-1.5 shadow-sm">
+            <button onclick="window.print()" class="px-3.5 py-2 bg-gradient-to-r from-sky-500 to-brand-600 text-white rounded-xl text-xs font-bold shadow-md hover:from-sky-600 hover:to-brand-700 transition flex items-center space-x-1.5 active:scale-95">
               <i data-lucide="printer" class="w-4 h-4"></i>
               <span>พิมพ์รายงาน</span>
             </button>
@@ -528,26 +531,26 @@
 
         <!-- ปุ่มสลับช่วงเวลา (รายวัน / รายสัปดาห์ / รายเดือน / รายเทอม) -->
         <div class="flex items-center justify-start sm:justify-center my-4 overflow-x-auto pb-1">
-          <div class="bg-sky-50 p-1.5 rounded-2xl flex space-x-1 text-xs font-semibold text-slate-600 border border-sky-200">
-            <button onclick="window.changeIndividualPeriod('day')" id="pBtn-day" class="px-3.5 py-2 rounded-xl transition bg-white text-brand-600 shadow-sm">
+          <div class="bg-sky-100/70 p-1.5 rounded-2xl flex space-x-1 text-xs font-bold text-sky-900 border border-sky-300">
+            <button onclick="window.changeIndividualPeriod('day')" id="pBtn-day" class="px-3.5 py-2 rounded-xl transition bg-white text-sky-700 shadow-sm">
               📅 รายวัน (วันนี้)
             </button>
-            <button onclick="window.changeIndividualPeriod('week')" id="pBtn-week" class="px-3.5 py-2 rounded-xl transition hover:text-brand-600">
+            <button onclick="window.changeIndividualPeriod('week')" id="pBtn-week" class="px-3.5 py-2 rounded-xl transition hover:text-sky-700">
               📊 รายสัปดาห์
             </button>
-            <button onclick="window.changeIndividualPeriod('month')" id="pBtn-month" class="px-3.5 py-2 rounded-xl transition hover:text-brand-600">
+            <button onclick="window.changeIndividualPeriod('month')" id="pBtn-month" class="px-3.5 py-2 rounded-xl transition hover:text-sky-700">
               🗓️ รายเดือน
             </button>
-            <button onclick="window.changeIndividualPeriod('semester')" id="pBtn-semester" class="px-3.5 py-2 rounded-xl transition hover:text-brand-600">
+            <button onclick="window.changeIndividualPeriod('semester')" id="pBtn-semester" class="px-3.5 py-2 rounded-xl transition hover:text-sky-700">
               🎓 รายภาคเรียน (เทอม)
             </button>
           </div>
         </div>
 
         <!-- ตารางแสดงสถิติรายคน -->
-        <div class="overflow-x-auto custom-scroll rounded-2xl border border-sky-100">
+        <div class="overflow-x-auto custom-scroll rounded-2xl border border-sky-200">
           <table class="w-full text-left text-xs whitespace-nowrap">
-            <thead class="bg-sky-50 text-slate-700 font-bold border-b border-sky-200">
+            <thead class="bg-sky-100 text-sky-950 font-bold border-b border-sky-200">
               <tr>
                 <th class="py-3 px-3 text-center w-10">#</th>
                 <th class="py-3 px-3">ชื่อ - สกุล / ตำแหน่ง</th>
@@ -558,10 +561,10 @@
                 <th class="py-3 px-2 text-center text-blue-700">ลากิจ</th>
                 <th class="py-3 px-2 text-center text-rose-700">ลาป่วย</th>
                 <th class="py-3 px-3 text-center font-bold text-slate-800">รวมมาปฏิบัติงาน</th>
-                <th class="py-3 px-3 text-center font-bold text-brand-700">% การมา</th>
+                <th class="py-3 px-3 text-center font-bold text-sky-800">% การมา</th>
               </tr>
             </thead>
-            <tbody id="individualTableBody" class="divide-y divide-slate-100">
+            <tbody id="individualTableBody" class="divide-y divide-sky-100">
               <!-- Populated by JS -->
             </tbody>
           </table>
@@ -581,20 +584,20 @@
   </div>
 
   <!-- แถบเครดิตผู้พัฒนา (1 บรรทัดเสมอ) -->
-  <footer class="bg-white/80 backdrop-blur-sm border-t border-sky-200 py-3 px-4 text-center text-xs text-slate-500 no-print">
+  <footer class="bg-white/90 backdrop-blur-md border-t-2 border-sky-300 py-3.5 px-4 text-center text-xs text-slate-600 no-print shadow-sm">
     <div class="max-w-7xl mx-auto flex items-center justify-center whitespace-nowrap overflow-hidden text-ellipsis">
-      <span class="font-medium text-slate-700">
-        พัฒนาโดย <strong class="text-brand-600 font-bold">นายนพคุณ สืบเลย</strong> โรงเรียนสีชมพูศึกษา อบจ.ขอนแก่น
+      <span class="font-semibold text-slate-700">
+        พัฒนาโดย <strong class="text-sky-600 font-bold">นายนพคุณ สืบเลย</strong> โรงเรียนสีชมพูศึกษา อบจ.ขอนแก่น
       </span>
     </div>
   </footer>
 
   <!-- Modal ตั้งค่าชีต (Config Modal) -->
   <div id="configModal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-sky-200">
-      <div class="flex items-center justify-between pb-3 border-b border-slate-100">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border-2 border-sky-300">
+      <div class="flex items-center justify-between pb-3 border-b border-sky-100">
         <h3 class="font-bold text-base text-slate-800 flex items-center space-x-2">
-          <i data-lucide="settings" class="w-5 h-5 text-brand-600"></i>
+          <i data-lucide="settings" class="w-5 h-5 text-sky-600"></i>
           <span>ตั้งค่า Google Apps Script Web App URL</span>
         </h3>
         <button onclick="window.closeConfigModal()" class="text-slate-400 hover:text-slate-600">
@@ -604,17 +607,17 @@
 
       <div class="space-y-4 my-4 text-xs">
         <div>
-          <label class="block font-semibold text-slate-700 mb-1">Web App URL ปัจจุบัน:</label>
-          <input type="text" id="configUrlInput" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-slate-700 font-mono text-[11px] outline-none focus:ring-2 focus:ring-brand-500">
+          <label class="block font-bold text-sky-950 mb-1">Web App URL ปัจจุบัน:</label>
+          <input type="text" id="configUrlInput" class="w-full bg-sky-50 border border-sky-200 rounded-xl px-3 py-2 text-slate-700 font-mono text-[11px] outline-none focus:ring-2 focus:ring-sky-400">
         </div>
-        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 leading-relaxed">
+        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-amber-800 leading-relaxed font-medium">
           💡 <strong>คำแนะนำ:</strong> เมื่ออัปเดตโค้ด Apps Script ในชีตแล้ว ให้เลือก Deploy เป็น <em>"New version"</em> เพื่อให้คำสั่งดึงข้อมูล (doGet) ทำงานได้ทันทีครับ
         </div>
       </div>
 
-      <div class="flex justify-end space-x-2 pt-2 border-t border-slate-100">
+      <div class="flex justify-end space-x-2 pt-2 border-t border-sky-100">
         <button onclick="window.closeConfigModal()" class="px-4 py-2 rounded-xl text-xs font-semibold text-slate-600 hover:bg-slate-100">ปิด</button>
-        <button onclick="window.saveConfigUrl()" class="px-4 py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-700 shadow">บันทึก URL</button>
+        <button onclick="window.saveConfigUrl()" class="px-4 py-2 rounded-xl text-xs font-bold bg-sky-600 text-white hover:bg-sky-700 shadow-md">บันทึก URL</button>
       </div>
     </div>
   </div>
@@ -785,7 +788,6 @@
 
       showToast('🔄 กำลังดึงข้อมูลล่าสุดจาก Google Sheets...', 'info');
 
-      // ลองแบบ Fetch ปกติก่อน
       fetch(scriptUrl)
         .then(res => res.json())
         .then(result => {
@@ -796,7 +798,6 @@
           }
         })
         .catch(() => {
-          // สลับมาใช้ JSONP อัตโนมัติ ป้องกันปัญหา CORS
           fetchViaJSONP(scriptUrl);
         });
     };
@@ -894,7 +895,6 @@
         photo: null
       };
 
-      // บันทึกทับแถวเดิมด้วยเวลาล่าสุด
       const existingIdx = attendanceLogs.findIndex(item => 
         item.name.trim() === newRecord.name.trim() && 
         item.date.trim() === newRecord.date.trim() && 
@@ -958,9 +958,9 @@
         const btn = document.getElementById(`pBtn-${p}`);
         if (!btn) return;
         if (p === period) {
-          btn.className = "px-3.5 py-2 rounded-xl transition bg-white text-brand-600 shadow-sm";
+          btn.className = "px-3.5 py-2 rounded-xl transition bg-white text-sky-700 shadow-sm font-bold";
         } else {
-          btn.className = "px-3.5 py-2 rounded-xl transition hover:text-brand-600";
+          btn.className = "px-3.5 py-2 rounded-xl transition hover:text-sky-700 font-medium";
         }
       });
 
@@ -994,14 +994,14 @@
         const percent = Math.min(100, Math.round((totalAttended / baseDays) * 100));
 
         return `
-          <tr class="hover:bg-sky-50/50 transition">
-            <td class="py-3 px-3 text-center text-slate-400">${idx + 1}</td>
+          <tr class="hover:bg-sky-50/70 transition">
+            <td class="py-3 px-3 text-center text-slate-400 font-semibold">${idx + 1}</td>
             <td class="py-3 px-3 font-semibold text-slate-800">
               <div class="flex items-center space-x-1.5">
                 <span>${staff.name}</span>
-                ${staff.isDirector ? '<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.5 rounded">ผอ.</span>' : ''}
+                ${staff.isDirector ? '<span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-1.5 py-0.5 rounded border border-amber-300">ผอ.</span>' : ''}
               </div>
-              <div class="text-[11px] text-slate-400 font-normal">${staff.position}</div>
+              <div class="text-[11px] text-sky-600 font-medium">${staff.position}</div>
             </td>
             <td class="py-3 px-2 text-center font-bold text-emerald-600">${normalCount}</td>
             <td class="py-3 px-2 text-center font-bold text-amber-600">${lateCount}</td>
@@ -1009,9 +1009,9 @@
             <td class="py-3 px-2 text-center font-bold text-indigo-600">${govCount}</td>
             <td class="py-3 px-2 text-center font-bold text-blue-600">${personalCount}</td>
             <td class="py-3 px-2 text-center font-bold text-rose-600">${sickCount}</td>
-            <td class="py-3 px-3 text-center font-bold text-slate-800 bg-slate-50">${totalAttended} วัน</td>
+            <td class="py-3 px-3 text-center font-bold text-sky-950 bg-sky-50/50">${totalAttended} วัน</td>
             <td class="py-3 px-3 text-center">
-              <span class="px-2 py-0.5 rounded-full font-bold ${percent >= 80 ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}">
+              <span class="px-2.5 py-0.5 rounded-full font-bold text-xs ${percent >= 80 ? 'bg-emerald-100 text-emerald-700 border border-emerald-300' : 'bg-amber-100 text-amber-700 border border-amber-300'}">
                 ${percent}%
               </span>
             </td>
@@ -1100,9 +1100,9 @@
       if (!container) return;
       container.innerHTML = staffList.map(s => `
         <button type="button" onclick="window.quickSelectStaff('${s.id}')" 
-          class="px-2.5 py-1.5 rounded-xl text-xs font-semibold bg-sky-50 text-sky-800 hover:bg-sky-100 border border-sky-300 transition flex items-center space-x-1">
+          class="px-3 py-1.5 rounded-xl text-xs font-bold bg-sky-50 text-sky-900 hover:bg-sky-200 border-2 border-sky-300 transition flex items-center space-x-1 shadow-xs active:scale-95">
           <span>${s.name}</span>
-          ${s.isDirector ? '<span class="bg-amber-400 text-white text-[9px] px-1 rounded">ผอ.</span>' : ''}
+          ${s.isDirector ? '<span class="bg-amber-400 text-white text-[9px] px-1 rounded shadow-xs">ผอ.</span>' : ''}
         </button>
       `).join('');
     }
@@ -1111,15 +1111,15 @@
       const grid = document.getElementById('rosterGrid');
       if (!grid) return;
       grid.innerHTML = staffList.map(s => `
-        <div class="bg-slate-50 hover:bg-sky-50/60 p-4 rounded-2xl border border-slate-200 hover:border-sky-300 transition flex items-center space-x-3.5">
-          <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-slate-300 bg-white flex items-center justify-center">
-            ${s.image ? `<img src="${s.image}" class="w-full h-full object-cover">` : `<i data-lucide="user" class="w-6 h-6 text-slate-400"></i>`}
+        <div class="bg-sky-50/50 hover:bg-sky-100/70 p-4 rounded-2xl border-2 border-sky-200 transition flex items-center space-x-3.5 shadow-xs">
+          <div class="w-12 h-12 rounded-xl overflow-hidden shrink-0 border border-sky-300 bg-white flex items-center justify-center">
+            ${s.image ? `<img src="${s.image}" class="w-full h-full object-cover">` : `<i data-lucide="user" class="w-6 h-6 text-sky-400"></i>`}
           </div>
           <div class="min-w-0 flex-grow">
             <h4 class="font-bold text-xs text-slate-800 truncate">${s.name}</h4>
-            <p class="text-[11px] text-brand-600 truncate">${s.position}</p>
+            <p class="text-[11px] text-sky-700 font-semibold truncate">${s.position}</p>
           </div>
-          <button onclick="window.quickSelectStaff('${s.id}')" class="px-2 py-1 bg-white hover:bg-sky-100 border border-slate-200 rounded-lg text-[10px] font-bold text-slate-600 shrink-0">
+          <button onclick="window.quickSelectStaff('${s.id}')" class="px-2.5 py-1 bg-white hover:bg-sky-200 border border-sky-300 rounded-lg text-[10px] font-bold text-sky-800 shrink-0 shadow-2xs">
             ลงเวลา
           </button>
         </div>
@@ -1131,31 +1131,31 @@
       if (!tbody) return;
 
       if (logs.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-slate-400">ยังไม่มีข้อมูลการลงเวลา</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-sky-800 font-medium">ยังไม่มีข้อมูลการลงเวลา</td></tr>`;
         return;
       }
 
       tbody.innerHTML = logs.map((item, idx) => `
-        <tr class="hover:bg-slate-50 transition">
-          <td class="py-3 px-3.5 text-center text-slate-400">${idx + 1}</td>
+        <tr class="hover:bg-sky-50 transition">
+          <td class="py-3 px-3.5 text-center text-slate-400 font-semibold">${idx + 1}</td>
           <td class="py-3 px-3.5">
             <div class="font-bold text-slate-800">${item.name}</div>
-            <div class="text-[10px] text-slate-400">${item.position}</div>
+            <div class="text-[10px] text-sky-600 font-medium">${item.position}</div>
           </td>
           <td class="py-3 px-3.5">
-            <span class="px-2 py-0.5 rounded text-[11px] font-semibold ${item.type.indexOf('เข้า') !== -1 ? 'bg-sky-100 text-sky-800' : 'bg-slate-100 text-slate-700'}">
+            <span class="px-2.5 py-0.5 rounded-md text-[11px] font-bold ${item.type.indexOf('เข้า') !== -1 ? 'bg-sky-100 text-sky-800 border border-sky-300' : 'bg-slate-100 text-slate-700 border border-slate-300'}">
               ${item.type}
             </span>
           </td>
-          <td class="py-3 px-3.5 text-slate-600">${item.date}</td>
-          <td class="py-3 px-3.5 font-digital font-bold text-brand-700">${item.time}</td>
+          <td class="py-3 px-3.5 text-slate-700 font-medium">${item.date}</td>
+          <td class="py-3 px-3.5 font-digital font-bold text-sky-700">${item.time}</td>
           <td class="py-3 px-3.5 text-center">
-            <span class="px-2 py-0.5 rounded-full font-bold text-[10px] ${getStatusClass(item.status)}">
+            <span class="px-2.5 py-0.5 rounded-full font-bold text-[10px] shadow-2xs ${getStatusClass(item.status)}">
               ${item.status}
             </span>
           </td>
-          <td class="py-3 px-3.5 text-slate-500 text-[11px] truncate max-w-[150px]">${item.location}</td>
-          <td class="py-3 px-3.5 text-slate-500 text-[11px] truncate max-w-[120px]">${item.note}</td>
+          <td class="py-3 px-3.5 text-slate-600 text-[11px] truncate max-w-[150px]">${item.location}</td>
+          <td class="py-3 px-3.5 text-slate-600 text-[11px] truncate max-w-[120px]">${item.note}</td>
           <td class="py-3 px-3.5 text-center">
             <button onclick="window.deleteRecord('${item.id}')" class="text-slate-400 hover:text-rose-600 p-1">
               <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
@@ -1171,12 +1171,12 @@
 
     function getStatusClass(status) {
       switch(status) {
-        case 'ปกติ': return 'bg-emerald-100 text-emerald-700';
-        case 'สาย': return 'bg-amber-100 text-amber-800';
-        case 'เวรยาม': return 'bg-sky-100 text-sky-700';
-        case 'ราชการ': return 'bg-purple-100 text-purple-700';
-        case 'ลากิจ': return 'bg-blue-100 text-blue-700';
-        case 'ลาป่วย': return 'bg-rose-100 text-rose-700';
+        case 'ปกติ': return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+        case 'สาย': return 'bg-amber-100 text-amber-800 border border-amber-300';
+        case 'เวรยาม': return 'bg-sky-100 text-sky-800 border border-sky-300';
+        case 'ราชการ': return 'bg-purple-100 text-purple-800 border border-purple-300';
+        case 'ลากิจ': return 'bg-blue-100 text-blue-800 border border-blue-300';
+        case 'ลาป่วย': return 'bg-rose-100 text-rose-800 border border-rose-300';
         default: return 'bg-slate-100 text-slate-700';
       }
     }
@@ -1213,11 +1213,11 @@
       const btnIn = document.getElementById('btnTypeIn');
       const btnOut = document.getElementById('btnTypeOut');
       if (type === 'เข้าปฏิบัติราชการ') {
-        btnIn.className = "flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 bg-brand-600 text-white shadow-md";
-        btnOut.className = "flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 text-slate-600 hover:text-brand-600";
+        btnIn.className = "flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 bg-gradient-to-r from-sky-500 to-brand-600 text-white shadow-md";
+        btnOut.className = "flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 text-sky-800 hover:text-brand-600 font-semibold";
       } else {
-        btnOut.className = "flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 bg-brand-600 text-white shadow-md";
-        btnIn.className = "flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 text-slate-600 hover:text-brand-600";
+        btnOut.className = "flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 bg-gradient-to-r from-sky-500 to-brand-600 text-white shadow-md";
+        btnIn.className = "flex-1 py-2.5 rounded-xl font-bold text-sm transition flex items-center justify-center space-x-2 text-sky-800 hover:text-brand-600 font-semibold";
       }
       userOverrodeStatus = false;
       checkAutoLate();
@@ -1230,10 +1230,10 @@
         if (!sec || !btn) return;
         if (t === tabId) {
           sec.classList.remove('hidden');
-          btn.className = "px-3.5 py-1.5 rounded-xl whitespace-nowrap transition flex items-center space-x-2 bg-brand-500 text-white shadow-sm font-semibold";
+          btn.className = "px-4 py-2 rounded-xl whitespace-nowrap transition flex items-center space-x-2 bg-gradient-to-r from-sky-500 to-brand-600 text-white shadow-md font-bold";
         } else {
           sec.classList.add('hidden');
-          btn.className = "px-3.5 py-1.5 rounded-xl whitespace-nowrap transition flex items-center space-x-2 text-slate-600 hover:text-brand-600 hover:bg-sky-50";
+          btn.className = "px-4 py-2 rounded-xl whitespace-nowrap transition flex items-center space-x-2 text-sky-900 hover:text-brand-600 hover:bg-sky-100/80 font-semibold";
         }
       });
       if (window.lucide && typeof lucide.createIcons === 'function') {
@@ -1285,8 +1285,8 @@
       const container = document.getElementById('toastContainer');
       if (!container) return;
       const toast = document.createElement('div');
-      const bg = type === 'success' ? 'bg-emerald-600' : type === 'warning' ? 'bg-amber-600' : 'bg-slate-800';
-      toast.className = `${bg} text-white text-xs font-semibold px-4 py-2.5 rounded-2xl shadow-xl flex items-center space-x-2 animate-bounce pointer-events-auto transition`;
+      const bg = type === 'success' ? 'bg-emerald-600' : type === 'warning' ? 'bg-amber-600' : 'bg-sky-800';
+      toast.className = `${bg} text-white text-xs font-bold px-4 py-2.5 rounded-2xl shadow-xl flex items-center space-x-2 animate-bounce pointer-events-auto transition border border-white/20`;
       toast.innerHTML = `<span>${msg}</span>`;
       container.appendChild(toast);
       setTimeout(() => toast.remove(), 4000);
