@@ -600,8 +600,10 @@
       { id: 4, name: 'นางสาวสุวิชชานี บรรทุมพร', position: 'ครูผู้ช่วย', isLeader: false },
       { id: 5, name: 'นางสาวเบญจวรรณ ภูมิเวียงศรี', position: 'พนักงานราชการ', isLeader: false },
       { id: 6, name: 'นางสาวแคทรียา นามวิจิตร', position: 'พนักงานราชการ', isLeader: false },
-      { id: 7, name: 'นางสาวนัฐธิดา คำอ้อ', position: 'ธุรการ', isLeader: false },
-      { id: 8, name: 'นางสังวาลย์ ทะกอง', position: 'พี่เลี้ยงเด็กพิการ', isLeader: false }
+      { id: 7, name: 'นายวรยุทธ ศรวิเศษ', position: 'พนักงานราชการ', isLeader: false },
+      { id: 8, name: 'นางสาวนัฐธิดา คำอ้อ', position: 'ธุรการ', isLeader: false },
+      { id: 9, name: 'นางสังวาลย์ ทะกอง', position: 'พี่เลี้ยงเด็กพิการ', isLeader: false },
+      { id: 10, name: 'นายพิเชฏฐ์พงษ์ ประเสริฐผล', position: 'นักการภารโรง', isLeader: false }
     ];
 
     let attendanceLogs = [];
@@ -1323,7 +1325,7 @@
 
     function loadStorageData() {
       try {
-        const savedStaff = localStorage.getItem('nbh_staff_2026_v2');
+        const savedStaff = localStorage.getItem('nbh_staff_2026_v3');
         if (savedStaff) {
           staffMembers = JSON.parse(savedStaff);
           const director = staffMembers.find(s => s.name.includes('กิจวัฒน์'));
@@ -1365,7 +1367,7 @@
 
     function saveStorageData() {
       try {
-        localStorage.setItem('nbh_staff_2026_v2', JSON.stringify(staffMembers));
+        localStorage.setItem('nbh_staff_2026_v3', JSON.stringify(staffMembers));
         localStorage.setItem('nbh_attendance_2026', JSON.stringify(attendanceLogs));
         localStorage.setItem('nbh_sheets_url', googleSheetsUrl);
         localStorage.setItem('nbh_sheets_autosync', JSON.stringify(autoSyncSheets));
